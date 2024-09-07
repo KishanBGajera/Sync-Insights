@@ -1,0 +1,50 @@
+.act-user {
+    height: 100vh;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+}
+
+.user-add{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    /* border: 1px solid black; */
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 20px;
+    box-shadow: 5px 2px 20px rgb(153, 151, 151);
+}
+
+.user-add input{
+    font-family: "Poppins", sans-serif;
+    width: 360px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.user-add select{
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.user-add button{
+    margin-top: 10px;
+    font-family: "Poppins", sans-serif;
+    padding: 5px;
+    background-color: rgb(53, 53, 165);
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+}
+
+.user-add button:hover{
+    background-color: rgb(58, 58, 163);
+}

@@ -1,0 +1,115 @@
+.calendar {
+  width: 900px;
+  margin: 20px auto;
+  margin-top: 65px;
+  padding: 0 15px;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: white;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+.calendar-header button {
+  background: none;
+  color: #808093;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.calendar-days {
+  display: flex;
+  background-color: #f9f9f9;
+  height: 60px;
+}
+
+.calendar-day {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  /* border-bottom: 1px solid #ccc;  */
+}
+
+.calendar-cells {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendar-cell {
+  width: calc(100% / 7);
+  /* 7 columns */
+  height: 85px;
+  padding: 10px;
+  text-align: center;
+  border: 0.5px solid #f8f8f9;
+  /* border-left: 1px solid #ccc; */
+  background-color: white;
+  cursor: pointer;
+}
+
+.calendar-cell.empty {
+  background-color: #f9f9f9;
+}
+
+.calendar-cell span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.4rem;
+  color: #4f4e6a;
+}
+
+/* .calendar-cell:last-child {
+  border-right: 1px solid #ccc;
+} */
+
+.calendar-cell .event {
+  background-color: #ff7f50;
+  color: white;
+  border-radius: 3px;
+  padding: 2px 5px;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.prev-month span,
+.next-month span {
+  color: #ccc;
+}
+
+.calendar-h4 {
+  position: absolute;
+  left: 250px;
+  top: 22px;
+}
+
+.create-event{
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  width: 500px;
+  padding: 15px 20px;
+  height: max-content;
+  margin: 0 10px;
+  margin-top: 120px;
+  background-color: #ffffff;
+}
+
+.event-header{
+  /* border: 1px solid black; */
+  padding: 20px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

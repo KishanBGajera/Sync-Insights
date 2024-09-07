@@ -1,0 +1,156 @@
+.manager-content-container {
+    width: 100%;
+    height: 100vh;
+    /* border: 1px solid black; */
+    background-color: #F7F7F8;
+    padding: 25px;
+    overflow: scroll;
+    scrollbar-width: none;
+    position: relative;
+}
+
+.manager-header-content {
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+}
+
+.table-container {
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+    /* padding: 20px; */
+    margin-top: 18px;
+    box-sizing: border-box;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+
+    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); */
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: none;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+.table th {
+    background-color: #F7F7F8;
+    font-weight: bold;
+}
+
+.table-cell {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* margin-bottom: 10px; */
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.gender {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.gender.male {
+    background-color: #d0e7ff;
+    color: #007bff;
+}
+
+.gender.female {
+    background-color: #ffdce5;
+    color: #e83e8c;
+}
+
+.employee-info {
+    width: max-content;
+    height: 100vh;
+    min-width: 300px;
+    /* border: 1px solid black; */
+    padding: 20px;
+}
+
+.employee-info-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border-bottom: 1px solid #F2F2F4;
+}
+
+.employee-info-contact {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.contact-info {
+    display: flex;
+    margin-top: 20px;
+    gap: 6px;
+    border-bottom: 1px solid #F2F2F4;
+}
+
+.employee-container {
+    width: 100%;
+    background-color: #F7F7F8;
+}
+
+.employee-container-header {
+    width: 100%;
+    height: 55px;
+    cursor: pointer;
+    display: flex;
+    /* color:#9a9a9a; */
+    color: rgb(31, 29, 29);
+    gap: 6px;
+    padding: 10px 10px;
+}
+
+.employee-insert {
+    width: 100%;
+    /* height: 80vh; */
+    padding: 25px 0;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.employee-form {
+    background-color: #fffdfd;
+    border-radius: 15px;
+    padding: 25px 45px;
+    width: 590px;
+}
+
+.employee-form input {
+    /* border: 1px solid #9a9a9a; */
+    border: none;
+    border-radius: 5px;
+    padding: 4px;
+    background-color: #F7F7F8;
+}
+
+.employee-form button {
+    border: none;
+    background-color: #605BFF;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
