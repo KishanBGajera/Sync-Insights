@@ -4,11 +4,12 @@ import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
+import { IoIosNotifications } from "react-icons/io";
 import '../../style/Sidebar.css';
 
 const Sidebar = () => {
 
-    const item = [{ img: <BiSolidDashboard style={{ fontSize: '20px' }} />, text: 'Task', path: '/employee/dashboard' }, { img: <FaCalendarAlt style={{ fontSize: '20px' }} />, text: 'Calendar', path: '/employee/calendar' }, { img: <FaFileInvoiceDollar style={{ fontSize: '20px' }} />, text: 'Schedule', path: '/employee/schedule' }, { img: <IoSettings style={{ fontSize: '20px' }} />, text: 'Setting', path: '/employee/setting' },]
+    const item = [{ img: <BiSolidDashboard style={{ fontSize: '20px' }} />, text: 'Task', path: '/employee/dashboard' }, { img: <FaCalendarAlt style={{ fontSize: '20px' }} />, text: 'Calendar', path: '/employee/calendar' }, { img: <FaFileInvoiceDollar style={{ fontSize: '20px' }} />, text: 'Schedule', path: '/employee/schedule' }, { img: <IoIosNotifications style={{ fontSize: '20px' }} />, text: 'Notification', path: '/insights/notification' }, { img: <IoSettings style={{ fontSize: '20px' }} />, text: 'Setting', path: '/employee/setting' },]
     return (
         <div className="sidebar-container">
             <div className="sidebarmenu">
