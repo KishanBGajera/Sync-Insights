@@ -1,12 +1,26 @@
-const express = require("express");
-const { userLogin, userLogout } = require("../controllers/user.controller.js");
-const { addUser } = require("../controllers/adduser.controller.js");
+const express = require('express');
 const router = express.Router();
-const {verifyUser} = require("../middlewares/auth.middleware.js");
-const { credentials } = require("../controllers/usercredentials.controller.js");
+const userController = require('../controllers/user.controller');
+const { userLogin, userLogout } = require("../controllers/user.controller");
+
+// GET all users
+router.get('/all', userController.getAllUsers);
+
+// GET a user by ID
+router.get('/:id', userController.getUserById);
+
+// POST a new user
+router.post('/create', userController.createUser);
+
+// PUT to update an existing user
+router.put('/:id', userController.updateUser);
+
+// DELETE a user
+router.delete('/:id', userController.deleteUser);
+
 router.post("/login", userLogin);
-router.post("/adduser", addUser); 
+
 router.post("/logout", userLogout);
-router.post("/credentials", credentials);
+// router.post("/credentials", credentials);
 
 module.exports = router;
