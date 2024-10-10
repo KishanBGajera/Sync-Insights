@@ -9,6 +9,9 @@ router.get('/all', userController.getAllUsers);
 // GET a user by ID
 router.get('/user', userController.getUserById);
 
+// GET all users of the department
+router.get('/all/department', userController.getAllUsersOfDepartment); 
+
 // POST a new user
 router.post('/create', userController.createUser);
 
