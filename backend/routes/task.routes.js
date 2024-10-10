@@ -6,7 +6,7 @@ const taskController = require('../controllers/task.controller');
 router.get('/all/department', taskController.getTasksByDepartmentId);
 
 // GET a task by ID
-router.get('/all/user', taskController.getTasksByUserId);
+router.get('/all/:user_id', taskController.getTasksByUserId);
 
 // POST a new task
 router.post('/create/', taskController.createTask);

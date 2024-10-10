@@ -9,26 +9,42 @@ import { loginUser } from "../Global/apiCall";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
+  const [role,setRole]=useState([]);
 
   const getInfo = (i) => {
     console.log(i.target.name, i.target.value);
     setUser({ ...user, [i.target.name]: i.target.value });
   };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response2 = await RoleData();
+  //       console.log(response2.data);
+  //       setRole(response2.data);
+  //     } catch (error) {
+  //       console.error(
+  //         "Error while retrieving data from department and role",
+  //         error
+  //       );
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
   const handleLoginForm = (e) => {
     e.preventDefault();
     loginUser(user)
       .then((response) => {
         console.log(response.data.data);
         localStorage.setItem("Info", JSON.stringify(response.data.data));
-        if (
-          // response.data.userData.entity_type == "owner" ||
-          // response.data.userData.entity_type == "upper_management" ||
-          // response.data.userData.entity_type == "lower_management"
-          response.data.data.position == "Manager"
-        ) {
-          window.location.href = "/insights/dashboard";
-        } else {
-          window.location.href = "/insights/dashboard";
+        if(response.data.data._id=="6706715e74f0afc0bcfead3a"){
+          window.location.href="/insights/dashboard"
+        }
+        else if(response.data.data._id=="6706718274f0afc0bcfead44"){
+          window.location.href="/ceo/dashboard"
+        }
+        else{
+          window.location.href="/employee/dashboard"
         }
       })
       .catch((error) => {

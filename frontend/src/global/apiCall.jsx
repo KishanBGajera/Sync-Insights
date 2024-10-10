@@ -19,4 +19,4 @@ export const DepartmentData = () => axios.get(apiKeys.get_department,{ withCrede
 export const RoleData = () => axios.get(apiKeys.get_role,{ withCredentials: true });
 export const UserData = () => axios.get(apiKeys.get_user,{ withCredentials: true });
 export const InsertTask = (data) => axios.post(apiKeys.insert_task,data,{ withCredentials: true });
-export const  GetAllTask= (data) => axios.get(apiKeys.get_task,data,{ withCredentials: true });
+export const  GetAllTask= (data) => axios.get(apiKeys.get_task+"/"+data,{ withCredentials: true });
