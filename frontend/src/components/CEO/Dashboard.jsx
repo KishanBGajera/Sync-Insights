@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState } from "react";
 import SidebarCEO from "./SidebarCEO";
 import { AuthContext } from "../../store/AuthContext";
 import { getAllTask } from "../../Global/apiCall";
@@ -25,7 +25,7 @@ const Dashboard = () => {
     }
   }, [Details]);
   return (
-    <div style={{ backgroundColor: "#f7f7f8" }}>
+    <div style={{ backgroundColor: "#f7f7f8", display: "flex" }}>
       <SidebarCEO />
     </div>
   );
