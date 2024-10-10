@@ -113,6 +113,20 @@ exports.getUserById = async (req, res) => {
 	}
 };
 
+// Get all users of the department
+exports.getAllUsersOfDepartment = async (req, res) => {
+	try {
+		const users = await User.find({ department_id: req.body.department_id });
+		if (users) {
+			res.json(users);
+		} else {
+			res.status(404).json({ message: 'Users not found'});
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+}
+
 // Create new user
 exports.createUser = async (req, res) => {
 	try {
