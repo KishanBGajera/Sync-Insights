@@ -136,14 +136,14 @@ exports.createUser = async (req, res) => {
 	try {
 		const { username, password, first_name, last_name, role, department, email, status } = req.body;
 		const roleDocument = await Role.findOne({ role_name: role });
-		const departmentDocument = await Department.findOne({ department_name: department });
+		const departmentDocument = department ? await Department.findOne({ department_name: department }) : null;
 		const newUser = await User.create({
 			username: username,
 			password: password,
 			first_name: first_name,
 			last_name: last_name,
 			role_id: roleDocument._id,
-			department_id: departmentDocument._id,
+			department_id: departmentDocument ? departmentDocument._id : undefined,
 			email: email,
 			status: status,
 		});

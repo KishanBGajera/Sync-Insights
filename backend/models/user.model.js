@@ -38,7 +38,7 @@ const userSchema = new Schema({
         type: String,
         enum: ["active", "inactive"],
         default: 'active',
-    },
+    }
 }, { timestamps: true });
 
 // Hash the password before saving the user
