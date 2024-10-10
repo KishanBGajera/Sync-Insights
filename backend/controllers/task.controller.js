@@ -2,7 +2,7 @@ const Task = require("../models/task.model");
 
 exports.createTask = async (req, res) => {
     try {
-        const { task_name, task_description, created_by, assigned_to, priority, deadline } = req.body;
+        const { task_name, task_description, created_by, assigned_to, priority, deadline, department_id } = req.body;
         const newTask = await Task.create({
             task_name: task_name,
             task_description: task_description,
@@ -10,12 +10,23 @@ exports.createTask = async (req, res) => {
             assigned_to: assigned_to,
             priority: priority,
             deadline: deadline,
+            department_id: department_id
         });
         res.status(201).json(newTask);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.getAllTasks = async (req, res) => {
+    try {
+        const foundTasks = await Task.find();
+        res.status(200).json(foundTasks);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 exports.getTasksByDepartmentId = async (req, res) => {
     try {

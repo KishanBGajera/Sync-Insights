@@ -9,6 +9,8 @@ const apiKeys = {
   get_user:`${BASE_URI}user/all`,
   insert_task:`${BASE_URI}task/create`,
   get_task:`${BASE_URI}task/all`,
+  get_all_task:`${BASE_URI}task/all`,
+  update_status:`${BASE_URI}task/update/status`,
 };
 
 export { BASE_URI, apiKeys };

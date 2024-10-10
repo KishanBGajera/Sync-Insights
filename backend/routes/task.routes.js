@@ -5,7 +5,10 @@ const { taskViewPermission, taskStatusPermission, taskWritePermission, taskCreat
 const { verifyUser } = require('../middlewares/auth.middleware.js');
 
 // GET all tasks
-router.get('/all/department', verifyUser, taskWritePermission, taskController.getTasksByDepartmentId);
+router.get('/all', taskController.getAllTasks);
+
+// GET all tasks from a department
+router.get('/all/department', taskController.getTasksByDepartmentId);
 
 // GET a task by ID
 router.get('/all/:user_id', verifyUser, taskViewPermission, taskController.getTasksByUserId);
