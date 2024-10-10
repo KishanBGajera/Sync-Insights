@@ -13,9 +13,10 @@ const Calendar = () => {
   const [Task, settask] = useState({
     task_name: "",
     task_description: "",
-    created_by: Details?._id,
+    created_by: "",
     assigned_to: "",
     deadline: "",
+    department_id:""
   });
 
   const handleTask = (index) => {
@@ -32,6 +33,16 @@ const Calendar = () => {
   };
 
   useEffect(() => {
+    if (Details && Details.department_id) {
+      settask((prevState) => ({
+        ...prevState,
+        department_id: Details.department_id,
+        created_by:Details._id
+      }));
+    }
+  }, [Details]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const userData = await UserData();
@@ -46,6 +57,7 @@ const Calendar = () => {
 
   const handleInsertUser = (e) => {
     e.preventDefault(); // Prevent default form submission
+    console.log(Task)
     InsertTask(Task)
       .then((response) => {
         console.log(response.data);
@@ -56,7 +68,7 @@ const Calendar = () => {
           assigned_to: "",
           deadline: "",
         });
-        window.location.href = "/insights/calendar";
+        // window.location.href = "/insights/calendar";
       })
       .catch((error) => {
         console.error("Error:", error);

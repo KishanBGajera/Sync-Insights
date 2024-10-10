@@ -7,12 +7,15 @@ import { IoIosNotifications } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import "../../style/Sidebar.css";
-import { useContext } from "react";
+import { useContext,useState,useEffect } from 'react';
 import { AuthContext } from "../../store/AuthContext";
 import { logoutUser } from "../../Global/apiCall";
+import { RoleData } from "../../global/apiCall.jsx";
 
 const Sidebar = () => {
   const { Details, logout } = useContext(AuthContext);
+  const [role, setRole] = useState([]);
+    const [data, setData] = useState();
   // const item = [
   //     { img: <BiSolidDashboard style={{ fontSize: '20px' }} />, text: 'Dashboard', path: '/insights/dashboard' },
   //     { img: <IoMdAnalytics style={{ fontSize: '20px' }} />, text: 'Analytics', path: '/insights/analytics' },
@@ -49,6 +52,33 @@ const Sidebar = () => {
     logout();
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response2 = await RoleData();
+        console.log(response2.data);
+        setRole(response2.data);
+      } catch (error) {
+        console.error(
+          "Error while retrieving data from department and role",
+          error
+        );
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (Details && Details.role_id) {
+      const foundRole = role.find(item => item._id === Details.role_id);
+      if (foundRole) {
+        setData(foundRole.role_name);
+      }
+    }
+  }, [role, Details]);
+
   return (
     <div className="sidebar-container">
       <div className="sidebarmenu">
@@ -83,7 +113,7 @@ const Sidebar = () => {
               />
               <p style={{ fontSize: "12px" }}>
                 {Details?.first_name} <br />
-                Employee
+                {data}
               </p>
               <IoLogOut
                 onClick={handleLogout}

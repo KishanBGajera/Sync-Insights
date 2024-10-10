@@ -6,10 +6,49 @@ import { IoSettings } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import { IoIosNotifications } from "react-icons/io";
 import '../../style/Sidebar.css';
+import { useContext,useState,useEffect } from 'react';
+import { AuthContext } from '../../store/AuthContext';
+import { logoutUser } from "../../Global/apiCall";
+import { RoleData } from "../../global/apiCall.jsx";
 
 const Sidebar = () => {
-
+    const {Details,logout}=useContext(AuthContext);
+    const [role, setRole] = useState([]);
+    const [data, setData] = useState();
     const item = [{ img: <BiSolidDashboard style={{ fontSize: '20px' }} />, text: 'Task', path: '/employee/dashboard' }, { img: <FaCalendarAlt style={{ fontSize: '20px' }} />, text: 'Calendar', path: '/employee/calendar' }, { img: <FaFileInvoiceDollar style={{ fontSize: '20px' }} />, text: 'Schedule', path: '/employee/schedule' }, { img: <IoIosNotifications style={{ fontSize: '20px' }} />, text: 'Notification', path: '/insights/notification' }, { img: <IoSettings style={{ fontSize: '20px' }} />, text: 'Setting', path: '/employee/setting' },]
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response2 = await RoleData();
+            console.log(response2.data);
+            setRole(response2.data);
+          } catch (error) {
+            console.error(
+              "Error while retrieving data from department and role",
+              error
+            );
+          }
+        };
+    
+        fetchData();
+      }, []);
+
+      useEffect(() => {
+        if (Details && Details.role_id) {
+          const foundRole = role.find(item => item._id === Details.role_id);
+          if (foundRole) {
+            setData(foundRole.role_name);
+          }
+        }
+      }, [role, Details]);
+
+    const handleLogout = () => {
+        logoutUser();
+        logout();
+        window.location.href = "/";
+      };
+
     return (
         <div className="sidebar-container">
             <div className="sidebarmenu">
@@ -37,9 +76,19 @@ const Sidebar = () => {
                             </li>
                         ))}
                         <li className='sidebar-list-bottom'>
-                            <img src="/user.jpg" alt="user" width={45} height={45} style={{ borderRadius: '10px' }} />
-                            <p style={{ fontSize: '12px' }}>Dhruvin Malani <br />Employee</p>
-                            <IoLogOut style={{ fontSize: '25px' }} />
+                        <img
+                className="avatar"
+                src={`https://ui-avatars.com/api/?name=${Details?.first_name}+${Details?.last_name}`}
+                alt="Avatar"
+              />
+              <p style={{ fontSize: "12px" }}>
+                {Details?.first_name} <br />
+                {data}
+              </p>
+              <IoLogOut
+                onClick={handleLogout}
+                style={{ fontSize: "25px", cursor: "pointer" }}
+              />
                         </li>
                     </ul>
                 </div>
