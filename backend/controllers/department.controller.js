@@ -3,7 +3,7 @@ const Department = require('../models/department.model');
 // Get all departments
 exports.getAllDepartments = async (req, res) => {
   try {
-    const departments = await Department.findAll();
+    const departments = await Department.find();
     res.json(departments);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -13,7 +13,7 @@ exports.getAllDepartments = async (req, res) => {
 // Get a department by ID
 exports.getDepartmentById = async (req, res) => {
   try {
-    const department = await Department.findByPk(req.params.id);
+    const department = await Department.find({department_id: req.params.id});
     if (department) {
       res.json(department);
     } else {
@@ -27,7 +27,11 @@ exports.getDepartmentById = async (req, res) => {
 // Create a new department
 exports.createDepartment = async (req, res) => {
   try {
-    const newDepartment = await Department.create(req.body);
+    const { department_id, department_name, manager_id } = req.body;
+    const newDepartment = await Department.create({
+      department_id, department_name, manager_id
+    });
+
     res.status(201).json(newDepartment);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -54,13 +58,10 @@ exports.updateDepartment = async (req, res) => {
 // Delete a department
 exports.deleteDepartment = async (req, res) => {
   try {
-    const rowsDeleted = await Department.destroy({ where: { department_id: req.params.id } });
-    if (rowsDeleted) {
-      res.status(204).send();
-    } else {
-      res.status(404).json({ message: 'Department not found' });
-    }
-  } catch (error) {
+    const status = await Department.deleteOne({ department_id: req.params.id });
+    res.json({status: status});
+  }
+  catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
