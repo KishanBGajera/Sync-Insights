@@ -11,13 +11,13 @@ app.use(express.json());
 
 // CORS middleware
 app.use(cors({
-    origin: "*",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 
-app.use(cookieParser());
+app.use(cookieParser());+
 app.use("/api", require("./routes/routers.routes"))
 
 app.listen(PORT, () => {

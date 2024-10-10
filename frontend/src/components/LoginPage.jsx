@@ -4,9 +4,8 @@ import { FaRegCopyright } from "react-icons/fa6";
 // import logo from './logo.jpg';
 import { Link } from "react-router-dom";
 import '../style/LoginPage.css';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { loginUser } from "../Global/apiCall";
-
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -19,7 +18,8 @@ const LoginPage = () => {
     e.preventDefault();
     loginUser(user)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
+        localStorage.setItem("Info", JSON.stringify(response.data.data));
         if (
           // response.data.userData.entity_type == "owner" ||
           // response.data.userData.entity_type == "upper_management" ||

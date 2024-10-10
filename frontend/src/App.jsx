@@ -1,13 +1,15 @@
-import './App.css';
-import { Outlet } from 'react-router-dom';
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import { AuthProvider } from "./store/AuthContext";
 
 function App() {
-
   return (
     <div>
-      <Outlet></Outlet>
+      <AuthProvider>
+        <Outlet></Outlet>
+      </AuthProvider>
     </div>
-  )
+  );
 }
 
 export default App;
