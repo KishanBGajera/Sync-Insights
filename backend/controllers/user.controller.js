@@ -157,6 +157,10 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
 	try {
 		const { user_id, username, password, first_name, last_name, role, department, email, status } = req.body;
+
+		const roleDocument = await Role.findOne({role_name: role});
+		const departmentDocument = await Department.findOne({department_name: department});
+
 		const updateStatus = await User.updateOne({ _id: user_id }, {
 			username: username,
 			password: password,

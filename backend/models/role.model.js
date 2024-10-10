@@ -5,9 +5,6 @@ const roleSchema = Schema({
         type: String,
         required: true,
     },
-    permissions: {
-        type: [String]
-    },
 }, {
     timestamps: true
 });

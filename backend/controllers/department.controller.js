@@ -27,9 +27,9 @@ exports.getDepartmentById = async (req, res) => {
 // Create a new department
 exports.createDepartment = async (req, res) => {
   try {
-    const { department_id, department_name, manager_id } = req.body;
+    const { department_name, manager_id } = req.body;
     const newDepartment = await Department.create({
-      department_id, department_name, manager_id
+      department_name, manager_id
     });
 
     res.status(201).json(newDepartment);
