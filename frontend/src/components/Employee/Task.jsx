@@ -2,7 +2,7 @@ import React, { useState,useEffect, useContext } from 'react';
 import Sidebar from './Sidebar';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import '../../style/Employee/Task.css';
-import { GetAllTask } from '../../Global/apiCall';
+import { GetAllTask, UpdateTask } from '../../Global/apiCall';
 import { AuthContext } from '../../store/AuthContext';
 
 const Task = () => {
@@ -10,78 +10,73 @@ const Task = () => {
     const [showAll, setShowAll] = useState(false);
     const [visible, setVisible] = useState(false);
     const [taskData, setTaskData] = useState([]);
+    const [completeData, setCompleteData] = useState([]);
+    const [status,setStatus]=useState({status:"",task_id:"",user_id:Details?._id})
 
-
-    const completedData = [
-        {
-            taskName: 'Invoices',
-            startDate: '03/12/2021',
-            endDate: '05/12/2021',
-            members: '5 Member',
-            status: 'Completed'
-        },
-        {
-            taskName: 'Product Numbering',
-            startDate: '03/12/2021',
-            endDate: '05/12/2021',
-            members: '5 Member',
-            status: 'Completed'
-        },
-        {
-            taskName: 'Shipment Processing',
-            startDate: '04/01/2021',
-            endDate: '06/01/2021',
-            members: '6 Member',
-            status: 'Completed'
-        },
-        {
-            taskName: 'Product Packaging',
-            startDate: '04/10/2021',
-            endDate: '06/10/2021',
-            members: '4 Member',
-            status: 'Completed'
-        },
-        {
-            taskName: 'Customer Support',
-            startDate: '05/15/2021',
-            endDate: '07/15/2021',
-            members: '3 Member',
-            status: 'Completed'
-        },
-        {
-            taskName: 'Quality Check',
-            startDate: '06/05/2021',
-            endDate: '08/05/2021',
-            members: '4 Member',
-            status: 'Completed'
-        },
-        {
-            taskName: 'Inventory Management',
-            startDate: '07/01/2021',
-            endDate: '09/01/2021',
-            members: '5 Member',
-            status: 'Completed'
-        }
-    ];
-
-    useEffect(() => {
-        console.log(Details)
-        const fetchData = async () => {
-          try {
-            if (Details._id) {
-              const userData = await GetAllTask(Details._id);
-              console.log(userData.data);
-              setTaskData(userData.data)
-            }
-          } catch (error) {
-            console.error("Error while retrieving data from users", error);
-          }
-        };
+    const getInfo = (e) => {
+        console.log(`${e.target.name}:${e.target.checked}`);
       
-        if (Details) {
-          fetchData();
+        if (e.target.checked == false) {
+          setStatus((prevState) => ({
+            ...prevState,
+            [e.target.name]: "pending",
+          }));
+        } else {
+          setStatus((prevState) => ({
+            ...prevState,
+            [e.target.name]: "completed",
+          }));
         }
-      }, [Details]);     
+      };
+      
+      const handleUpdate = (id) => {
+        setStatus((prevState) => ({
+          ...prevState,
+          task_id: id,
+        }));
+      };
+      
+      // Trigger the API call when `status` is updated
+      useEffect(() => {
+        if (status.task_id) {
+          // Only call UpdateTask when the status is updated and task_id exists
+          UpdateTask(status)
+            .then((res) => {
+              console.log("Task updated successfully:", res);
+              setStatus({
+                status: "",
+                task_id: "",
+              })
+            })
+            .catch((err) => {
+              console.error("Error updating task:", err);
+            });
+        }
+      }, [status]); // This will run every time `status` changes
+      
+
+      useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (Details._id) {
+                    const userData = await GetAllTask(Details._id);
+                    const tasks = userData.data;
+                    const doneTasks = tasks.filter(task => task.status === "completed");
+                    const pendingTasks = tasks.filter(task => task.status !== "completed");
+                    
+                    setTaskData(pendingTasks);
+                    setCompleteData(doneTasks);
+                }
+            } catch (error) {
+                console.error("Error while retrieving data from users", error);
+            }
+        };
+    
+        if (Details) {
+            fetchData();
+        }
+    }, [Details,status]);
+       
       
     const visibleData = taskData.slice(0, 2);
 
@@ -97,32 +92,29 @@ const Task = () => {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th >Check Box</th>
+                                {/* <th >Check Box</th> */}
                                 <th >Task Name</th>
                                 <th >Start Date</th>
                                 <th >End Date</th>
-                                <th >Member</th>
                                 <th >Status</th>
-                                <th >Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {completedData.map((item, index) => (
+                            {completeData.map((item, index) => (
                                 <tr key={index}>
-                                    <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+                                    {/* <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
                                         <div className="table-cell">
                                             <input type="checkbox" />
                                         </div>
-                                    </td>
-                                    <td style={{ color: '#605aff' }}>{item.taskName}</td>
-                                    <td style={{ color: '#5a5973' }}>{item.startDate}</td>
-                                    <td style={{ color: '#df5f6a' }}>{item.endDate}</td>
-                                    <td style={{ color: '#5a5973' }}>{item.members}</td>
+                                    </td> */}
+                                    <td style={{ color: '#605aff' }}>{item.task_name}</td>
+                                    <td style={{ color: '#5a5973' }}>{item.createdAt}</td>
+                                    <td style={{ color: '#df5f6a' }}>{item.deadline}</td>
                                     <td><span style={{ border: '0px solid black', padding: '6px 10px', backgroundColor: '#3a974c', color: '#ffffff', borderRadius: '10px' }}>{item.status}</span></td>
-                                    <td style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
+                                    {/* <td style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
                                         <button className="action-button edit">Edit</button>
                                         <button className="action-button delete">Delete</button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>
@@ -138,7 +130,7 @@ const Task = () => {
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th >Check Box</th>
+                                    {/* <th >Check Box</th> */}
                                     <th >Task Name</th>
                                     <th >Start Date</th>
                                     <th >End Date</th>
@@ -148,11 +140,11 @@ const Task = () => {
                             <tbody>
                                 {taskData.map((item, index) => (
                                     <tr key={index}>
-                                        <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+                                        {/* <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
                                             <div className="table-cell">
-                                                <input type="checkbox" />
+                                                <input name='status'   type="checkbox" />
                                             </div>
-                                        </td>
+                                        </td> */}
                                         {/* Adjusted columns */}
                                         <td style={{ color: '#605aff' }}>{item.task_name}</td>
                                         <td style={{ color: '#5a5973' }}>{item.createdAt}</td>
@@ -188,7 +180,7 @@ const Task = () => {
                                         <tr key={index}>
                                             <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
                                                 <div className="table-cell">
-                                                    <input type="checkbox" />
+                                                    <input onChange={getInfo} name='status' onClick={()=>handleUpdate(item._id)} type="checkbox" />
                                                 </div>
                                             </td>
                                             {/* Adjusted columns */}
@@ -206,7 +198,7 @@ const Task = () => {
                             </table>
                         </div>
                     </div>
-                    <div style={{ border: '0px solid black', backgroundColor: '#ffffff', height: '260px', overflow: 'hidden', marginTop: '20px', borderRadius: '12px' }} className="manager-content-container">
+                    <div style={{ border: '0px solid black', backgroundColor: '#ffffff', height: '250px', overflow: 'hidden', marginTop: '20px', borderRadius: '12px' }} className="manager-content-container">
                         <div className="manager-header-content">
                             <p style={{ fontSize: '18px', fontWeight: '500' }}>Done</p>
                             <p style={{ cursor: 'pointer', color: '#6a65ff', fontSize: '17px', fontWeight: '500' }} onClick={() => setVisible(true)}>
@@ -221,29 +213,22 @@ const Task = () => {
                                         <th style={{ backgroundColor: '#ffffff' }}>Task Name</th>
                                         <th style={{ backgroundColor: '#ffffff' }}>Start Date</th>
                                         <th style={{ backgroundColor: '#ffffff' }}>End Date</th>
-                                        <th style={{ backgroundColor: '#ffffff' }}>Member</th>
                                         <th style={{ backgroundColor: '#ffffff' }}>Status</th>
-                                        <th style={{ backgroundColor: '#ffffff' }}>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {completedData.map((item, index) => (
+                                    {completeData.map((item, index) => (
                                         <tr key={index}>
                                             <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
                                                 <div className="table-cell">
-                                                    <input checked='true' type="checkbox" />
+                                                    <input checked='true' name='status' onChange={getInfo} onClick={()=>handleUpdate(item._id)} type="checkbox" />
                                                 </div>
                                             </td>
                                             {/* Adjusted columns */}
-                                            <td style={{ color: '#605aff' }}>{item.taskName}</td>
-                                            <td style={{ color: '#5a5973' }}>{item.startDate}</td>
-                                            <td style={{ color: '#df5f6a' }}>{item.endDate}</td>
-                                            <td style={{ color: '#5a5973' }}>{item.members}</td>
+                                            <td style={{ color: '#605aff' }}>{item.task_name}</td>
+                                            <td style={{ color: '#5a5973' }}>{item.createdAt}</td>
+                                            <td style={{ color: '#df5f6a' }}>{item.deadline}</td>
                                             <td><span style={{ border: '0px solid black', padding: '6px 10px', backgroundColor: '#3a974c', color: '#ffffff', borderRadius: '10px' }}>{item.status}</span></td>
-                                            <td style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
-                                                <button className="action-button edit">Edit</button>
-                                                <button className="action-button delete">Delete</button>
-                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
