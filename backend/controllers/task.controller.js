@@ -17,6 +17,16 @@ exports.createTask = async (req, res) => {
     }
 };
 
+exports.getAllTasks = async (req, res) => {
+    try {
+        const foundTasks = await Task.find();
+        res.status(200).json(foundTasks);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.getTasksByDepartmentId = async (req, res) => {
     try {
         const { department_id } = req.body;
