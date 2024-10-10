@@ -1,66 +1,62 @@
-const Task = require('../models/task.model');
+const Task = require("../models/task.model");
 
-// Get all tasks
-exports.getAllTasks = async (req, res) => {
-  try {
-    const tasks = await Task.findAll();
-    res.json(tasks);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-// Get a task by ID
-exports.getTaskById = async (req, res) => {
-  try {
-    const task = await Task.findByPk(req.params.id);
-    if (task) {
-      res.json(task);
-    } else {
-      res.status(404).json({ message: 'Task not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-// Create a new task
 exports.createTask = async (req, res) => {
-  try {
-    const newTask = await Task.create(req.body);
-    res.status(201).json(newTask);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    try {
+        const { task_id, task_name, task_description, created_by, assigned_to, priority, deadline } = req.body;
+        const newTask = await Task.create({
+            task_name: task_name,
+            task_description: task_description,
+            created_by: created_by,
+            assigned_to: assigned_to,
+            priority: priority,
+            deadline: deadline,
+        });
+        res.status(201).json(newTask);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
-// Update an existing task
+exports.getTasksByDepartmentId = async (req, res) => {
+    try {
+        const { department_id } = req.body;
+        const foundTasks = await Task.find({ department_id: department_id });
+        res.status(200).json(foundTasks);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+exports.getTasksByUserId = async (req, res) => {
+    try {
+        const { user_id } = req.body;
+        const foundTasks = await Task.find({ assigned_to: user_id });
+        res.status(200).json(foundTasks);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.updateTask = async (req, res) => {
-  try {
-    const [updated] = await Task.update(req.body, {
-      where: { task_id: req.params.id },
-    });
-    if (updated) {
-      const updatedTask = await Task.findByPk(req.params.id);
-      res.json(updatedTask);
-    } else {
-      res.status(404).json({ message: 'Task not found' });
+    try {
+        const { task_id, task_name, task_description } = req.body;
+        const status = await Task.updateOne({ _id: task_id }, { task_name: task_name, task_description: task_description });
+        res.json({ status: status });
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
-// Delete a task
-exports.deleteTask = async (req, res) => {
-  try {
-    const rowsDeleted = await Task.destroy({ where: { task_id: req.params.id } });
-    if (rowsDeleted) {
-      res.status(204).send();
-    } else {
-      res.status(404).json({ message: 'Task not found' });
+exports.deleteTaskById = async (req, res) => {
+    try {
+        const { task_id } = req.body;
+        const status = await Task.deleteOne({_id: task_id});
+        res.json({ status });
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

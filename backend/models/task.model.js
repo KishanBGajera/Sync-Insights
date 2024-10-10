@@ -1,18 +1,13 @@
 const { Schema, model } = require('mongoose');
 
 const taskSchema = Schema({
-    task_id: {
-        type: Number,
-        autoIncrement: true,
-        primaryKey: true,
-    },
     task_name: {
         type: String,
-        allowNull: false,
+        required: true,
     },
     task_description: {
         type: String,
-        allowNull: true,
+        required: false,
     },
     created_by: {
         type: Schema.Types.ObjectId,
@@ -34,6 +29,7 @@ const taskSchema = Schema({
     },
     deadline: {
         type: Date,
+        required: false,
     },
     department_id: {
         type: Schema.Types.ObjectId,
