@@ -1,4 +1,7 @@
 const User = require('../models/user.model.js');
+const Role = require('../models/role.model.js');
+const Department = require('../models/department.model.js');
+
 const ApiResponse = require("../utils/ApiResponse.js");
 const ApiError = require("../utils/ApiError.js");
 const asyncHandler = require("../utils/asyncHandler.js");
@@ -102,6 +105,7 @@ exports.getAllUsers = async (req, res) => {
 // Get user by ID
 exports.getUserById = async (req, res) => {
 	try {
+		const user_id = req.body;
 		const user = await User.find({ id: req.params.id });
 		if (user) {
 			res.json(user);
@@ -130,7 +134,19 @@ exports.getAllUsersOfDepartment = async (req, res) => {
 // Create new user
 exports.createUser = async (req, res) => {
 	try {
-		const newUser = await User.create(req.body);
+		const { username, password, first_name, last_name, role, department, email, status } = req.body;
+		const roleDocument = await Role.findOne({ role_name: role });
+		const departmentDocument = await Department.findOne({ department_name: department });
+		const newUser = await User.create({
+			username: username,
+			password: password,
+			first_name: first_name,
+			last_name: last_name,
+			role_id: roleDocument._id,
+			department_id: departmentDocument._id,
+			email: email,
+			status: status,
+		});
 		res.status(201).json(newUser);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -140,15 +156,18 @@ exports.createUser = async (req, res) => {
 // Update user
 exports.updateUser = async (req, res) => {
 	try {
-		const updated = await User.update(req.body, {
-			where: { user_id: req.params.id },
+		const { user_id, username, password, first_name, last_name, role, department, email, status } = req.body;
+		const updateStatus = await User.updateOne({ _id: user_id }, {
+			username: username,
+			password: password,
+			first_name: first_name,
+			last_name: last_name,
+			role_id: roleDocument._id,
+			department_id: departmentDocument._id,
+			email: email,
+			status: status,
 		});
-		if (updated) {
-			const updatedUser = await User.findByPk(req.params.id);
-			res.json(updatedUser);
-		} else {
-			res.status(404).json({ message: 'User not found' });
-		}
+		res.json({ updateStatus });
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -157,12 +176,9 @@ exports.updateUser = async (req, res) => {
 // Delete user
 exports.deleteUser = async (req, res) => {
 	try {
-		const rowsDeleted = await User.destroy({ where: { user_id: req.params.id } });
-		if (rowsDeleted) {
-			res.status(204).send();
-		} else {
-			res.status(404).json({ message: 'User not found' });
-		}
+		const { user_id } = req.body;
+		const status = await User.deleteOne({ _id: user_id });
+		res.json({ status });
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

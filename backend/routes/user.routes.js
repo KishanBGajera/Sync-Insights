@@ -7,7 +7,7 @@ const { userLogin, userLogout } = require("../controllers/user.controller");
 router.get('/all', userController.getAllUsers);
 
 // GET a user by ID
-router.get('/:id', userController.getUserById);
+router.get('/user', userController.getUserById);
 
 // GET all users of the department
 router.get('/all/department', userController.getAllUsersOfDepartment); 
@@ -16,10 +16,10 @@ router.get('/all/department', userController.getAllUsersOfDepartment);
 router.post('/create', userController.createUser);
 
 // PUT to update an existing user
-router.put('/:id', userController.updateUser);
+router.put('/update', userController.updateUser);
 
 // DELETE a user
-router.delete('/:id', userController.deleteUser);
+router.delete('/delete', userController.deleteUser);
 
 router.post("/login", userLogin);
 

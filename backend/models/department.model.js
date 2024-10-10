@@ -1,9 +1,6 @@
 const { Schema, model } = require('mongoose');
 
 const departmentSchema = Schema({
-    department_id: {
-        type: Number,
-    },
     department_name: {
         type: String,
         required: true,
