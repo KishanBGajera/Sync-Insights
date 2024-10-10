@@ -77,11 +77,9 @@ const Sidebar = () => {
             ))}
             <li className="sidebar-list-bottom">
               <img
-                src="/user.jpg"
-                alt="user"
-                width={45}
-                height={45}
-                style={{ borderRadius: "10px" }}
+                className="avatar"
+                src={`https://ui-avatars.com/api/?name=${Details?.first_name}+${Details?.last_name}`}
+                alt="Avatar"
               />
               <p style={{ fontSize: "12px" }}>
                 {Details?.first_name} <br />
