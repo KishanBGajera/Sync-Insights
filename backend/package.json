@@ -4,7 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
+        "department-test": "jest ./tests/department.test",
+        "role-test": "jest ./tests/role.test",
+        "user-test": "jest ./tests/user.test",
+        "task-test": "jest ./tests/task.test",
         "start": "nodemon index.js"
     },
     "type": "commonjs",
@@ -18,10 +22,11 @@
         "dotenv": "^16.4.5",
         "express": "^4.21.0",
         "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.2.1",
-        "sequelize": "^6.37.4"
+        "mongoose": "^8.2.1"
     },
     "devDependencies": {
-        "nodemon": "^3.1.4"
+        "jest": "^29.7.0",
+        "nodemon": "^3.1.4",
+        "supertest": "^7.0.0"
     }
 }
