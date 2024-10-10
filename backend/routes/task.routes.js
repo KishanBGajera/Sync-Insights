@@ -11,6 +11,9 @@ router.get('/all/user', taskController.getTasksByUserId);
 // POST a new task
 router.post('/create/', taskController.createTask);
 
+// PUT to update task status
+router.put('/update/status', taskController.updateTaskStatus);
+
 // PUT to update an existing task
 router.put('/update', taskController.updateTask);
 

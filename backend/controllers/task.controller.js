@@ -39,6 +39,17 @@ exports.getTasksByUserId = async (req, res) => {
     }
 }
 
+exports.updateTaskStatus = async (req, res) => {
+    try {
+        const { task_id, status } = req.body;
+        const statusUpdate = await Task.updateOne({ _id: task_id }, { status: status});
+        res.status(201).json({success: true});
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.updateTask = async (req, res) => {
     try {
         const { task_id, task_name, task_description } = req.body;
