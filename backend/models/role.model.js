@@ -9,7 +9,7 @@ const roleSchema = Schema({
         required: true,
     },
     permissions: {
-        type: {}
+        type: [String]
     },
 }, {
     timestamps: true
