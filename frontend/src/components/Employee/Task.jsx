@@ -9,58 +9,8 @@ const Task = () => {
     const {Details} = useContext(AuthContext);
     const [showAll, setShowAll] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [taskData, setTaskData] = useState([]);
 
-    const taskData = [
-        {
-            taskName: 'Invoices',
-            startDate: '03/12/2021',
-            endDate: '05/12/2021',
-            members: '5 Member',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Product Numbering',
-            startDate: '03/12/2021',
-            endDate: '05/12/2021',
-            members: '5 Member',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Shipment Processing',
-            startDate: '04/01/2021',
-            endDate: '06/01/2021',
-            members: '6 Member',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Product Packaging',
-            startDate: '04/10/2021',
-            endDate: '06/10/2021',
-            members: '4 Member',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Customer Support',
-            startDate: '05/15/2021',
-            endDate: '07/15/2021',
-            members: '3 Member',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Quality Check',
-            startDate: '06/05/2021',
-            endDate: '08/05/2021',
-            members: '4 Member',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Inventory Management',
-            startDate: '07/01/2021',
-            endDate: '09/01/2021',
-            members: '5 Member',
-            status: 'Pending'
-        }
-    ];
 
     const completedData = [
         {
@@ -120,7 +70,8 @@ const Task = () => {
           try {
             if (Details._id) {
               const userData = await GetAllTask(Details._id);
-              console.log(userData);
+              console.log(userData.data);
+              setTaskData(userData.data)
             }
           } catch (error) {
             console.error("Error while retrieving data from users", error);
@@ -191,9 +142,7 @@ const Task = () => {
                                     <th >Task Name</th>
                                     <th >Start Date</th>
                                     <th >End Date</th>
-                                    <th >Member</th>
                                     <th >Status</th>
-                                    <th >Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -205,15 +154,10 @@ const Task = () => {
                                             </div>
                                         </td>
                                         {/* Adjusted columns */}
-                                        <td style={{ color: '#605aff' }}>{item.taskName}</td>
-                                        <td style={{ color: '#5a5973' }}>{item.startDate}</td>
-                                        <td style={{ color: '#df5f6a' }}>{item.endDate}</td>
-                                        <td style={{ color: '#5a5973' }}>{item.members}</td>
+                                        <td style={{ color: '#605aff' }}>{item.task_name}</td>
+                                        <td style={{ color: '#5a5973' }}>{item.createdAt}</td>
+                                        <td style={{ color: '#df5f6a' }}>{item.deadline}</td>
                                         <td><span style={{ border: '0px solid black', padding: '6px 10px', backgroundColor: '#ff8f6b', color: '#ffffff', borderRadius: '10px' }}>{item.status}</span></td>
-                                        <td style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
-                                            <button className="action-button edit">Edit</button>
-                                            <button className="action-button delete">Delete</button>
-                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -236,9 +180,7 @@ const Task = () => {
                                         <th style={{ backgroundColor: '#ffffff' }}>Task Name</th>
                                         <th style={{ backgroundColor: '#ffffff' }}>Start Date</th>
                                         <th style={{ backgroundColor: '#ffffff' }}>End Date</th>
-                                        <th style={{ backgroundColor: '#ffffff' }}>Member</th>
                                         <th style={{ backgroundColor: '#ffffff' }}>Status</th>
-                                        <th style={{ backgroundColor: '#ffffff' }}>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -250,15 +192,14 @@ const Task = () => {
                                                 </div>
                                             </td>
                                             {/* Adjusted columns */}
-                                            <td style={{ color: '#605aff' }}>{item.taskName}</td>
-                                            <td style={{ color: '#5a5973' }}>{item.startDate}</td>
-                                            <td style={{ color: '#df5f6a' }}>{item.endDate}</td>
-                                            <td style={{ color: '#5a5973' }}>{item.members}</td>
+                                            <td style={{ color: '#605aff' }}>{item.task_name}</td>
+                                            <td style={{ color: '#5a5973' }}>{item.createdAt}</td>
+                                            <td style={{ color: '#df5f6a' }}>{item.deadline}</td>
                                             <td><span style={{ border: '0px solid black', padding: '6px 10px', backgroundColor: '#ff8f6b', color: '#ffffff', borderRadius: '10px' }}>{item.status}</span></td>
-                                            <td style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
+                                            {/* <td style={{ borderTopRightRadius: '20px', borderBottomRightRadius: '20px' }}>
                                                 <button className="action-button edit">Edit</button>
                                                 <button className="action-button delete">Delete</button>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     ))}
                                 </tbody>

@@ -30,7 +30,7 @@ exports.getTasksByDepartmentId = async (req, res) => {
 
 exports.getTasksByUserId = async (req, res) => {
     try {
-        const { user_id } = req.body;
+        const user_id = req.params.user_id;
         const foundTasks = await Task.find({ assigned_to: user_id });
         res.status(200).json(foundTasks);
     }
