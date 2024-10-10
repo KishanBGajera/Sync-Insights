@@ -3,18 +3,18 @@ const router = express.Router();
 const roleController = require('../controllers/role.controller');
 
 // GET all roles
-router.get('/', roleController.getAllRoles);
+router.get('/all', roleController.getAllRoles);
 
 // GET a role by ID
 router.get('/:id', roleController.getRoleById);
 
 // POST a new role
-router.post('/', roleController.createRole);
+router.post('/create', roleController.createRole);
 
 // PUT to update an existing role
-router.put('/:id', roleController.updateRole);
+router.put('/update/:id', roleController.updateRole);
 
 // DELETE a role
-router.delete('/:id', roleController.deleteRole);
+router.delete('/delete/:id', roleController.deleteRole);
 
 module.exports = router;
