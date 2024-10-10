@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import Sidebar from './Sidebar';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import '../../style/Employee/Task.css';
+import { GetAllTask } from '../../Global/apiCall';
+import { AuthContext } from '../../store/AuthContext';
 
 const Task = () => {
+    const {Details} = useContext(AuthContext);
     const [showAll, setShowAll] = useState(false);
     const [visible, setVisible] = useState(false);
 
@@ -111,6 +114,24 @@ const Task = () => {
         }
     ];
 
+    useEffect(() => {
+        console.log(Details)
+        const fetchData = async () => {
+          try {
+            if (Details._id) {
+              const userData = await GetAllTask(Details._id);
+              console.log(userData);
+            }
+          } catch (error) {
+            console.error("Error while retrieving data from users", error);
+          }
+        };
+      
+        if (Details) {
+          fetchData();
+        }
+      }, [Details]);     
+      
     const visibleData = taskData.slice(0, 2);
 
     return (

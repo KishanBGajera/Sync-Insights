@@ -67,14 +67,14 @@
     font-weight: bold;
 }
 
-.gender.male {
+.gender.active {
     background-color: #d0e7ff;
     color: #007bff;
 }
 
-.gender.female {
+.gender.inactive {
     background-color: #ffdce5;
-    color: #e83e8c;
+    color: #e83e46;
 }
 
 .employee-info {
@@ -154,3 +154,4 @@
     border-radius: 5px;
     padding: 5px 20px;
 }
+

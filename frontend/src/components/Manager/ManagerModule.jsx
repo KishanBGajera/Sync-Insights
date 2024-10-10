@@ -2,103 +2,121 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar.jsx";
 import { IoAddOutline } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
-import { FaPhoneAlt } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { GrOrganization } from "react-icons/gr";
+import { MdOutlineSensorOccupied } from "react-icons/md";
 import "../../style/Manager/Managermodule.css";
-import { DepartmentData, InsertUser, RoleData } from "../../global/apiCall.jsx";
+import {
+  DepartmentData,
+  InsertUser,
+  RoleData,
+  UserData,
+} from "../../global/apiCall.jsx";
 
 const ManagerModule = () => {
-  const data = [
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-      type: "UI/UX Designer",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-    {
-      name: "John Deo",
-      email: "johndoe2211@gmail.com",
-      phone: "+33757005467",
-      gender: "Male",
-    },
-    {
-      name: "Shelby Goode",
-      email: "shelbygoode481@gmail.com",
-      phone: "+33757005467",
-      gender: "Female",
-    },
-  ];
+  // const data = [
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //     type: "UI/UX Designer",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  //   {
+  //     name: "John Deo",
+  //     email: "johndoe2211@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Male",
+  //   },
+  //   {
+  //     name: "Shelby Goode",
+  //     email: "shelbygoode481@gmail.com",
+  //     phone: "+33757005467",
+  //     gender: "Female",
+  //   },
+  // ];
 
   const [makeVisible, setMakeVisible] = useState(null);
   const [employee, setEmployee] = useState(false);
-  const [registerUser, setregisterUser] = useState({ first_name: "", last_name: "", email: "", username:"",password:"",job_id:"",department_id:""});
+  const [registerUser, setregisterUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    username: "",
+    password: "",
+    job_id: "",
+    department_id: "",
+    status: "",
+  });
+  const [data, setData] = useState([]);
+  const [dept, setDept] = useState([]);
+  const [role, setRole] = useState([]);
   const handleVisibility = (index) => {
     setMakeVisible(index === makeVisible ? null : index);
   };
@@ -108,53 +126,58 @@ const ManagerModule = () => {
 
   const getInfo = (e) => {
     const { name, value } = e.target;
-    // if (name in registerUser.role_id) {
-    //     setregisterUser(prevState => ({
-    //         ...prevState,
-    //         address: {
-    //             ...prevState.address,
-    //             [name]: value
-    //         }
-    //     }));
-    // } else {
-    console.log(`${name}:${value}`)
-        setregisterUser(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    // }
-};
+    console.log(`${name}:${value}`);
+    setregisterUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response1 = await DepartmentData();
         const response2 = await RoleData();
-        console.log(response);
-        //   setShipment(response.data.data);
+        const userData = await UserData();
+        console.log(response1.data, response2.data, userData.data);
+        setDept(response1.data); // async state update
+        setRole(response2.data);
+        setData(userData.data); // async state update
       } catch (error) {
-        console.error("erroe while retriving data from departmant and role", error);
+        console.error(
+          "Error while retrieving data from department and role",
+          error
+        );
       }
     };
 
     fetchData();
   }, []);
 
+  // Separate useEffect to log state when it's updated
+
   const handleInsertUser = (e) => {
     e.preventDefault(); // Prevent default form submission
     InsertUser(registerUser)
-        .then((response) => {
-            console.log(response.data);
-            alert("User registered successfully!");
-            setregisterUser({
-              first_name: "", last_name: "", email: "", username:"",password:"",job_id:"",department_id:""
-            });
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("Failed to register user. Please try again.");
+      .then((response) => {
+        console.log(response.data);
+        alert("User registered successfully!");
+        setregisterUser({
+          first_name: "",
+          last_name: "",
+          email: "",
+          username: "",
+          password: "",
+          job_id: "",
+          department_id: "",
         });
-};
+        window.location.href = "/insights/dashboard";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Failed to register user. Please try again.");
+      });
+  };
 
   return (
     <div style={{ display: "flex" }}>
@@ -181,7 +204,8 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>First Name</span>
-                  <input onChange={getInfo}
+                  <input
+                    onChange={getInfo}
                     style={{ marginTop: "6px", width: "240px" }}
                     required
                     name="first_name"
@@ -197,7 +221,8 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>Last Name</span>
-                  <input onChange={getInfo}
+                  <input
+                    onChange={getInfo}
                     style={{ marginTop: "6px", width: "240px" }}
                     name="last_name"
                     required
@@ -213,7 +238,8 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>Username</span>
-                  <input onChange={getInfo}
+                  <input
+                    onChange={getInfo}
                     style={{ marginTop: "6px", width: "240px" }}
                     name="username"
                     required
@@ -229,7 +255,8 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>Password</span>
-                  <input onChange={getInfo}
+                  <input
+                    onChange={getInfo}
                     style={{ marginTop: "6px", width: "240px" }}
                     required
                     name="password"
@@ -245,13 +272,15 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>Email</span>
-                  <input onChange={getInfo}
+                  <input
+                    onChange={getInfo}
                     style={{ marginTop: "6px", width: "240px" }}
                     name="email"
                     required
                     type="email"
                   />
                 </div>
+
                 <div
                   style={{
                     display: "flex",
@@ -260,14 +289,24 @@ const ManagerModule = () => {
                   }}
                   className="form-details"
                 >
-                  <span>Salary</span>
-                  <input
-                    style={{ marginTop: "6px", width: "240px" }}
+                  <span>Status</span>
+                  <select
+                    onChange={getInfo}
+                    style={{
+                      marginTop: "6px",
+                      width: "240px",
+                      border: "none",
+                      backgroundColor: "#f7f7f8",
+                      borderRadius: "5px",
+                      padding: "3.5px 5px",
+                      color: "black",
+                    }}
                     required
-                    name="phone"
-                    type="text"
-                    maxLength={10}
-                  />
+                    name="status"
+                  >
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
                 </div>
                 <div
                   style={{
@@ -278,7 +317,8 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>Role</span>
-                  <select onChange={getInfo}
+                  <select
+                    onChange={getInfo}
                     style={{
                       marginTop: "6px",
                       width: "240px",
@@ -286,13 +326,16 @@ const ManagerModule = () => {
                       backgroundColor: "#f7f7f8",
                       borderRadius: "5px",
                       padding: "3.5px 5px",
+                      color: "black",
                     }}
                     required
                     name="role_id"
                   >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    {role.map((item, index) => (
+                      <option value={item._id} key={index}>
+                        {item.role_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -305,7 +348,8 @@ const ManagerModule = () => {
                   className="form-details"
                 >
                   <span>Department</span>
-                  <select onChange={getInfo}
+                  <select
+                    onChange={getInfo}
                     style={{
                       marginTop: "6px",
                       width: "240px",
@@ -317,9 +361,11 @@ const ManagerModule = () => {
                     required
                     name="department_id"
                   >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    {dept.map((item, index) => (
+                      <option value={item._id} key={index}>
+                        {item.department_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -332,7 +378,9 @@ const ManagerModule = () => {
                     marginTop: "10px",
                   }}
                 >
-                  <button onClick={handleInsertUser} type="submit">Add Employee</button>
+                  <button onClick={handleInsertUser} type="submit">
+                    Add Employee
+                  </button>
                 </div>
               </div>
             </div>
@@ -366,8 +414,8 @@ const ManagerModule = () => {
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Phone number</th>
-                    <th>Gender</th>
+                    <th>Department</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -382,22 +430,29 @@ const ManagerModule = () => {
                         <div className="table-cell">
                           <img
                             className="avatar"
-                            src={`https://ui-avatars.com/api/?name=${item.name}`}
+                            src={`https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`}
                             alt="Avatar"
                           />
-                          <span>{item.name}</span>
+                          <span>
+                            {item.first_name} {item.last_name}
+                          </span>
                         </div>
                       </td>
                       <td>{item.email}</td>
-                      <td>{item.phone}</td>
+                      {dept.map((val, index) =>
+                        item.department_id === val._id ? (
+                          <td key={index}>{val.department_name}</td>
+                        ) : null
+                      )}
+
                       <td
                         style={{
                           borderTopRightRadius: "20px",
                           borderBottomRightRadius: "20px",
                         }}
                       >
-                        <span className={`gender ${item.gender.toLowerCase()}`}>
-                          {item.gender}
+                        <span className={`gender ${item.status.toLowerCase()}`}>
+                          {item.status}
                         </span>
                       </td>
                     </tr>
@@ -413,10 +468,10 @@ const ManagerModule = () => {
                   <div className="employee-info-header">
                     <img
                       style={{ borderRadius: "20px" }}
-                      src={`https://ui-avatars.com/api/?name=${item.name}`}
+                      src={`https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`}
                       alt={item.name}
                     />
-                    <h5 style={{ marginTop: "5px" }}>{item.name}</h5>
+                    <h5 style={{ marginTop: "5px" }}>{item.first_name} {item.last_name}</h5>
                     <p style={{ marginTop: "-8px", fontSize: "12px" }}>
                       {item.type}
                     </p>
@@ -428,10 +483,24 @@ const ManagerModule = () => {
                       <p>{item.email}</p>
                     </div>
                     <div className="contact-info">
-                      <FaPhoneAlt
+                      <MdOutlineSensorOccupied
                         style={{ fontSize: "20px", color: "b4b4bf" }}
                       />
-                      <p>{item.phone}</p>
+                      {role.map((val, index) =>
+                        item.role_id === val._id ? (
+                          <p key={index}>{val.role_name}</p>
+                        ) : null
+                      )}
+                    </div>
+                    <div className="contact-info">
+                      <GrOrganization
+                        style={{ fontSize: "20px", color: "b4b4bf" }}
+                      />
+                      {dept.map((val, index) =>
+                        item.department_id === val._id ? (
+                          <p key={index}>{val.department_name}</p>
+                        ) : null
+                      )}
                     </div>
                   </div>
                 </div>
