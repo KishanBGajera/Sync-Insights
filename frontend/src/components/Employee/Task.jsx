@@ -180,7 +180,7 @@ const Task = () => {
                                         <tr key={index}>
                                             <td style={{ borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
                                                 <div className="table-cell">
-                                                    <input onChange={getInfo} name='status' onClick={()=>handleUpdate(item._id)} type="checkbox" />
+                                                    <input onChange={getInfo} checked={false} name='status' onClick={()=>handleUpdate(item._id)} type="checkbox" />
                                                 </div>
                                             </td>
                                             {/* Adjusted columns */}
@@ -198,7 +198,7 @@ const Task = () => {
                             </table>
                         </div>
                     </div>
-                    <div style={{ border: '0px solid black', backgroundColor: '#ffffff', height: '250px', overflow: 'hidden', marginTop: '20px', borderRadius: '12px' }} className="manager-content-container">
+                    <div style={{ border: '0px solid black', backgroundColor: '#ffffff', height: '250px', overflow: 'scroll', marginTop: '20px', borderRadius: '12px' }} className="manager-content-container">
                         <div className="manager-header-content">
                             <p style={{ fontSize: '18px', fontWeight: '500' }}>Done</p>
                             <p style={{ cursor: 'pointer', color: '#6a65ff', fontSize: '17px', fontWeight: '500' }} onClick={() => setVisible(true)}>

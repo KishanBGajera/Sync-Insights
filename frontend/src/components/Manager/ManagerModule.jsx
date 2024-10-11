@@ -12,6 +12,7 @@ import {
   RoleData,
   UserData,
 } from "../../global/apiCall.jsx";
+import SideChart from "../../utils/SideChart.jsx";
 
 const ManagerModule = () => {
   // const data = [
@@ -471,13 +472,13 @@ const ManagerModule = () => {
                       src={`https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`}
                       alt={item.name}
                     />
-                    <h5 style={{ marginTop: "5px" }}>{item.first_name} {item.last_name}</h5>
+                    <h4 style={{ marginTop: "5px" }}>{item.first_name} {item.last_name}</h4>
                     <p style={{ marginTop: "-8px", fontSize: "12px" }}>
                       {item.type}
                     </p>
                   </div>
                   <div className="employee-info-contact">
-                    <h5>Contact Info</h5>
+                    <h5 style={{marginTop:"-10px",marginBottom:'20px'}}>Contact Info</h5>
                     <div className="contact-info">
                       <MdEmail style={{ fontSize: "25px", color: "b4b4bf" }} />
                       <p>{item.email}</p>
@@ -501,6 +502,9 @@ const ManagerModule = () => {
                           <p key={index}>{val.department_name}</p>
                         ) : null
                       )}
+                    </div>
+                    <div>
+                      <SideChart id={item._id} />
                     </div>
                   </div>
                 </div>

@@ -90,19 +90,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 160px;
     border-bottom: 1px solid #F2F2F4;
 }
 
 .employee-info-contact {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 10px;
+    padding: 12px;
 }
 
 .contact-info {
     display: flex;
-    margin-top: 20px;
-    gap: 6px;
+    margin-top: 6px;
+    gap: 4px;
     border-bottom: 1px solid #F2F2F4;
 }
 
