@@ -134,16 +134,16 @@ exports.getAllUsersOfDepartment = async (req, res) => {
 // Create new user
 exports.createUser = async (req, res) => {
 	try {
-		const { username, password, first_name, last_name, role, department, email, status } = req.body;
-		const roleDocument = await Role.findOne({ role_name: role });
-		const departmentDocument = department ? await Department.findOne({ department_name: department }) : null;
+		const { username, password, first_name, last_name, role_id, department_id, email, status } = req.body;
+		// const roleDocument = await Role.findOne({ role_name: role });
+		// const departmentDocument = department ? await Department.findOne({ department_name: department }) : null;
 		const newUser = await User.create({
 			username: username,
 			password: password,
 			first_name: first_name,
 			last_name: last_name,
-			role_id: roleDocument._id,
-			department_id: departmentDocument ? departmentDocument._id : undefined,
+			role_id: role_id,
+			department_id: department_id,
 			email: email,
 			status: status,
 		});

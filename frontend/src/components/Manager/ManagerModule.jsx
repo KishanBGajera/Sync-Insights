@@ -110,7 +110,7 @@ const ManagerModule = () => {
     email: "",
     username: "",
     password: "",
-    job_id: "",
+    role_id: "",
     department_id: "",
     status: "",
   });
@@ -168,7 +168,7 @@ const ManagerModule = () => {
           email: "",
           username: "",
           password: "",
-          job_id: "",
+          role_id: "",
           department_id: "",
         });
         window.location.href = "/insights/dashboard";

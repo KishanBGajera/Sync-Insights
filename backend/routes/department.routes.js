@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const departmentController = require('../controllers/department.controller');
-const { verifyUser} = require('../middlewares/auth.middleware');
-const { verifyCEO } = require('../middlewares/task.middleware');
 
 // GET all departments
-router.get('/all', verifyUser, verifyCEO, departmentController.getAllDepartments);
+router.get('/all', departmentController.getAllDepartments);
 
 // GET a department by ID
 router.get('/:id', departmentController.getDepartmentById);
