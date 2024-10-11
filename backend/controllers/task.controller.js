@@ -53,7 +53,15 @@ exports.getTasksByUserId = async (req, res) => {
 exports.updateTaskStatus = async (req, res) => {
     try {
         const { task_id, status } = req.body;
-        const statusUpdate = await Task.updateOne({ _id: task_id }, { status: status});
+        const today = new Date();
+        const dateOnly = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+
+
+        if (status === "done") {
+            await Task.updateOne({_id: task_id}, {status: status, completed_on: dateOnly});
+        } else {
+            await Task.updateOne({ _id: task_id }, { status: status, completed_on: null});
+        }        
         res.status(201).json({success: true});
     }
     catch (error) {

@@ -35,6 +35,9 @@ const taskSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Department',
     },
+    completed_on: {
+        type: String,
+    }
 }, {
     timestamps: true,
 });
