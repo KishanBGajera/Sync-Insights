@@ -8,24 +8,24 @@ import { AuthContext } from "../../store/AuthContext.jsx";
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const { Details } = useContext(AuthContext);
-  const [task, setTask] = useState(false);
+  const [task, setTask] = useState(null); // Store the day to add a task for that date
   const [data, setData] = useState([]);
+  const [tasks, setTasks] = useState([]); // Store all the tasks
   const [Task, settask] = useState({
     task_name: "",
     task_description: "",
     created_by: "",
     assigned_to: "",
     deadline: "",
-    department_id:""
+    department_id: ""
   });
 
   const handleTask = (index) => {
-    setTask(task == index ? null : index);
+    setTask(task === index ? null : index);
   };
 
   const getInfo = (e) => {
     const { name, value } = e.target;
-    console.log(`${name}:${value}`);
     settask((prevState) => ({
       ...prevState,
       [name]: value,
@@ -37,7 +37,7 @@ const Calendar = () => {
       settask((prevState) => ({
         ...prevState,
         department_id: Details.department_id,
-        created_by:Details._id
+        created_by: Details._id,
       }));
     }
   }, [Details]);
@@ -46,8 +46,7 @@ const Calendar = () => {
     const fetchData = async () => {
       try {
         const userData = await UserData();
-        console.log(userData.data);
-        setData(userData.data); // async state update
+        setData(userData.data); // Store user data
       } catch (error) {
         console.error("Error while retrieving data from users", error);
       }
@@ -56,11 +55,15 @@ const Calendar = () => {
   }, []);
 
   const handleInsertUser = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    console.log(Task)
-    InsertTask(Task)
+    e.preventDefault();
+    const newTask = {
+      ...Task,
+      deadline: task, // Assign the clicked day as the deadline for simplicity
+    };
+    setTasks([...tasks, newTask]); // Add the new task to the state
+    setTask(null); // Close task creation modal after submission
+    InsertTask(newTask)
       .then((response) => {
-        console.log(response.data);
         alert("Task added successfully!");
         settask({
           task_name: "",
@@ -68,10 +71,8 @@ const Calendar = () => {
           assigned_to: "",
           deadline: "",
         });
-        // window.location.href = "/insights/calendar";
       })
       .catch((error) => {
-        console.error("Error:", error);
         alert("Failed to register task. Please try again.");
       });
   };
@@ -83,9 +84,7 @@ const Calendar = () => {
     return (
       <div className="calendar-header">
         <button onClick={() => changeMonth(-1)}>◀</button>
-        <div
-          style={{ color: "#4f4e6a", fontSize: "18px" }}
-        >{`${monthName} ${year}`}</div>
+        <div style={{ color: "#4f4e6a", fontSize: "18px" }}>{`${monthName} ${year}`}</div>
         <button onClick={() => changeMonth(1)}>▶</button>
       </div>
     );
@@ -105,28 +104,17 @@ const Calendar = () => {
   };
 
   const renderCells = () => {
-    const startOfMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      1
-    );
-    const endOfMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      0
-    );
+    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
     const daysInMonth = endOfMonth.getDate();
-
-    const prevMonthEnd = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      0
-    );
+    const prevMonthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
     const prevMonthDays = prevMonthEnd.getDate();
-
     const startDayOfWeek = startOfMonth.getDay();
     const daysArray = [];
 
+    const formatDay = (day) => `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+
+    // Fill in the dates from the previous month
     for (let i = startDayOfWeek; i > 0; i--) {
       daysArray.push(
         <div key={`prev-${i}`} className="calendar-cell prev-month">
@@ -135,15 +123,31 @@ const Calendar = () => {
       );
     }
 
-    // Fill in the actual days of the current month
+    // Fill in the actual days of the current month and add tasks
     for (let day = 1; day <= daysInMonth; day++) {
+      const dayTasks = tasks.filter((task) => task.deadline === formatDay(day)); // Get tasks for this day
       daysArray.push(
         <div
           key={day}
-          onClick={() => handleTask(day)}
+          onClick={() => handleTask(formatDay(day))}
           className="calendar-cell"
         >
           <span>{day}</span>
+          {dayTasks.map((task, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundColor: "#605bff",
+                color: "#fff",
+                padding: "4px",
+                marginTop: "4px",
+                borderRadius: "5px",
+                fontSize: "12px",
+              }}
+            >
+              {task.task_name}
+            </div>
+          ))}
         </div>
       );
     }
@@ -151,7 +155,6 @@ const Calendar = () => {
     // Fill in the remaining cells with the next month's dates
     const totalCells = daysArray.length;
     const remainingCells = 35 - totalCells;
-
     for (let i = 1; i <= remainingCells; i++) {
       daysArray.push(
         <div key={`next-${i}`} className="calendar-cell next-month">
@@ -164,25 +167,19 @@ const Calendar = () => {
   };
 
   const changeMonth = (monthChange) => {
-    setCurrentDate(
-      new Date(currentDate.setMonth(currentDate.getMonth() + monthChange))
-    );
+    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + monthChange)));
   };
 
   return (
-    <div
-      style={{ display: "flex", background: "#f7f7f8", position: "relative" }}
-    >
+    <div style={{ display: "flex", background: "#f7f7f8", position: "relative" }}>
       <Sidebar></Sidebar>
       <h4 className="calendar-h4">Calendar</h4>
       {task && (
         <div className="create-event">
           <div className="event-header">
-            <p style={{ fontSize: "20px", fontWeight: "500" }}>
-              Create an Event
-            </p>
+            <p style={{ fontSize: "20px", fontWeight: "500" }}>Create an Event</p>
             <IoMdClose
-              onClick={() => handleTask()}
+              onClick={() => handleTask(null)}
               style={{
                 fontSize: "35px",
                 borderRadius: "15px",
@@ -190,7 +187,6 @@ const Calendar = () => {
                 marginTop: "-12px",
                 cursor: "pointer",
                 color: "#ee5d6f",
-                backgroundColor: "fef3f6",
               }}
             />
           </div>
@@ -222,6 +218,7 @@ const Calendar = () => {
               outline: "none",
               marginTop: "20px",
             }}
+            placeholder="Task Description"
           ></textarea>
           <div>
             <p>Assign to: </p>
@@ -268,32 +265,13 @@ const Calendar = () => {
               type="time"
             />
           </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "10px",
-              padding: "12px 0",
-            }}
-          >
-            <button
-              onClick={handleInsertUser}
-              style={{
-                border: "none",
-                backgroundColor: "#605bff",
-                color: "#ffffff",
-                padding: "8px 11px",
-                borderRadius: "10px",
-              }}
-            >
+          <div style={{ width: "100%", marginTop: "10px", padding: "12px 0", textAlign: "center" }}>
+            <button onClick={handleInsertUser} style={{ border: "none", backgroundColor: "#605bff", color: "#ffffff", padding: "8px 11px", borderRadius: "10px" }}>
               Save
             </button>
           </div>
         </div>
       )}
-
       <div className="calendar">
         {renderHeader()}
         {renderDays()}
