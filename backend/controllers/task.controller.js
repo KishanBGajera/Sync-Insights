@@ -57,7 +57,7 @@ exports.updateTaskStatus = async (req, res) => {
         const dateOnly = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
 
         let updateStatus = undefined;
-        if (status === "done") {
+        if (status === "completed") {
             updateStatus = await Task.findByIdAndUpdate(task_id, {status: status, completed_on: dateOnly}, {new: true});
         } else {
             updateStatus = await Task.findByIdAndUpdate(task_id, { status: status, completed_on: null}, {new: true});
