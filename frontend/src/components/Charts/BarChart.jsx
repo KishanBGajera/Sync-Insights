@@ -11,12 +11,12 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarChart = ({ data, labels, backgroundColor='rgba(75, 192, 192, 0.6)', borderColor='rgba(75, 192, 192, 1)', width, height }) => {
+const BarChart = ({ data, labels, backgroundColor='rgba(75, 192, 192, 0.6)', borderColor='rgba(75, 192, 192, 1)', width, height, name='Dataset' }) => {
     const chartData = {
         labels: labels,
         datasets: [
             {
-                label: 'Dataset',
+                label:  name,
                 data: data,
                 backgroundColor: backgroundColor,
                 borderColor: borderColor,

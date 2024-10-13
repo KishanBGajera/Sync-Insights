@@ -13,7 +13,7 @@ const Dashboard = () => {
           const userData = await getAllTask();
           console.log(userData.data)
           setTask(userData.data);
-          console.log(userData.data.filter((task) => task.assigned_to === "67051b955927154766b96cf4")); 
+          // console.log(userData.data.filter((task) => task.assigned_to === "67051b955927154766b96cf4")); 
           // setTask(userData);
 
       } catch (error) {
@@ -28,7 +28,7 @@ const Dashboard = () => {
   return (
     <div style={{ backgroundColor: "#f7f7f8", display: "flex" }}>
       <SidebarCEO />
-      <div style={{width:'100%'}}>
+      <div style={{width:'100%',maxHeight:"100vh",overflow:"scroll",scrollbarWidth:"none"}}>
         <OverallStats />
       </div>
     </div>

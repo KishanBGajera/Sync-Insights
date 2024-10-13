@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LineChart from "../Charts/LineChart";
 import { getAllTask,DepartmentData, GetDepartmentNameById } from "../../global/apiCall";
 import PieChart from "../Charts/PieChart";
+import DepartmentWiseSummary from "./DepartmentWiseSummary";
 
 const OverallStats = () => {
   const [completedTasks, setCompletedTasks] = useState([]);
@@ -9,19 +10,20 @@ const OverallStats = () => {
   const [dateCount, setDateCount] = useState({});
   const [departmentCount, setDepartmentCount] = useState({});
   const [departmentNames, setDepartmentNames] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userData = await getAllTask();
-        // const departmentData = await DepartmentData();
+        const departmentData = await DepartmentData();
         const tasks = userData.data;
 
         const doneTasks = tasks.filter((task) => task.status === "completed");
-        console.log("completed tasks", doneTasks);
-        // console.log("department",department)
+        // console.log("completed tasks", doneTasks);
+        // console.log("department",departmentData)
 
         setCompletedTasks(doneTasks);
-        // setDepartmentNames(department)
+        setDepartmentNames(departmentData.data)
       } catch (error) {
         console.error("Error while retrieving data from task by userId", error);
       }
@@ -116,15 +118,15 @@ useEffect(() => {
 }, [departmentCount]);
 
 
-  console.log("departmentNames", departmentNames)
-  console.log("Sorted Completed Dates:", completedOnDates);
-  console.log("Date Count:", dateCount); // Output the counts of each date
-  console.log("Department Count:", departmentCount);
+  // console.log("departmentNames", departmentNames)
+  // console.log("Sorted Completed Dates:", completedOnDates);
+  // console.log("Date Count:", dateCount); // Output the counts of each date
+  // console.log("Department Count:", departmentCount);
 
   return (
     <div style={{ border: "0px solid black", width: "100%", padding: "16px"}}>
       <h3 style={{ borderBottom: "1px solid #9a9a9a" }}>Stats Summary</h3>
-      <div style={{display:"flex"}}>
+      <div style={{display:"flex",gap:'4px'}}>
       <LineChart
         data={Object.values(dateCount)}
         labels={Object.keys(dateCount)}
@@ -136,7 +138,10 @@ useEffect(() => {
         width={500}
         height={432} />
       </div>
-      
+      <div style={{marginTop:'24px',overflow:'hidden'}}>
+        <h5 style={{ borderBottom: "1px solid #9a9a9a" }}>Department-wise Summary</h5>
+        <DepartmentWiseSummary />
+      </div>
     </div>
   );
 };
