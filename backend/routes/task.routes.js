@@ -6,7 +6,7 @@ const taskController = require('../controllers/task.controller');
 router.get('/all', taskController.getAllTasks);
 
 // GET all tasks by DepartmentId
-router.get('/all/department', taskController.getTasksByDepartmentId);
+router.get('/all/department/:id', taskController.getTasksByDepartmentId);
 
 // GET a task by ID
 router.get('/all/:user_id', taskController.getTasksByUserId);
