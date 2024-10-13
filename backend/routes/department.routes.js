@@ -8,6 +8,9 @@ router.get('/all', departmentController.getAllDepartments);
 // GET a department by ID
 router.get('/:id', departmentController.getDepartmentById);
 
+// GET department name by department ID
+router.get('/name/:id', departmentController.getDepartmentNameById)
+
 // POST a new department
 router.post('/create', departmentController.createDepartment);
 

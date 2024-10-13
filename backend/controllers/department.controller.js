@@ -24,6 +24,22 @@ exports.getDepartmentById = async (req, res) => {
   }
 };
 
+// GET department name by department ID
+exports.getDepartmentNameById = async (req, res) => {
+  try {
+    const department_id = req.params.id;
+    const department = await Department.findOne({_id: department_id});
+
+    if (department) {
+      res.json({ department_name: department.department_name });
+    } else {
+      res.status(404).json({ message: 'Department not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 // Create a new department
 exports.createDepartment = async (req, res) => {
   try {
