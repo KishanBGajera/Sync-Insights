@@ -127,7 +127,7 @@ const ManagerModule = () => {
 
   const getInfo = (e) => {
     const { name, value } = e.target;
-    console.log(`${name}:${value}`);
+    // console.log(`${name}:${value}`);
     setregisterUser((prevState) => ({
       ...prevState,
       [name]: value,
@@ -140,7 +140,7 @@ const ManagerModule = () => {
         const response1 = await DepartmentData();
         const response2 = await RoleData();
         const userData = await UserData();
-        console.log(response1.data, response2.data, userData.data);
+        // console.log(response1.data, response2.data, userData.data);
         setDept(response1.data); // async state update
         setRole(response2.data);
         setData(userData.data); // async state update
@@ -161,7 +161,7 @@ const ManagerModule = () => {
     e.preventDefault(); // Prevent default form submission
     InsertUser(registerUser)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         alert("User registered successfully!");
         setregisterUser({
           first_name: "",

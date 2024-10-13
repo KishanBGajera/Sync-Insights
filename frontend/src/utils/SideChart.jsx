@@ -12,7 +12,6 @@ const SideChart = ({ id }) => {
       try {
         const userData = await GetAllTask(id);
         const tasks = userData.data;
-        console.log(tasks);
 
         const doneTasks = tasks.filter((task) => task.status === "completed");
         setCompletedTasks(doneTasks);
@@ -65,9 +64,6 @@ const SideChart = ({ id }) => {
       setDateCount(count);
     }
   }, [completedTasks]);
-
-  console.log("Sorted Completed Dates:", completedOnDates);
-  console.log("Date Count:", dateCount); // Output the counts of each date
 
   return (
     <div>

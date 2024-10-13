@@ -15,6 +15,7 @@ axios.create({
 export const loginUser = (data) => axios.post(apiKeys.login, data,{ withCredentials: true });
 export const logoutUser = () => axios.post(apiKeys.logout,{ withCredentials: true });
 export const InsertUser = (data) => axios.post(apiKeys.insert_user, data,{ withCredentials: true });
+export const createDepartment = (data) => axios.post(apiKeys.create_department, data,{ withCredentials: true });
 export const DepartmentData = () => axios.get(apiKeys.get_department,{ withCredentials: true });
 export const RoleData = () => axios.get(apiKeys.get_role,{ withCredentials: true });
 export const UserData = () => axios.get(apiKeys.get_user,{ withCredentials: true });

@@ -35,16 +35,16 @@ const Sidebar = () => {
       text: "Calendar",
       path: "/insights/calendar",
     },
-    {
-      img: <FaFileInvoiceDollar style={{ fontSize: "20px" }} />,
-      text: "Schedule",
-      path: "/insights/schedule",
-    },
-    {
-      img: <IoSettings style={{ fontSize: "20px" }} />,
-      text: "Setting",
-      path: "/insights/setting",
-    },
+    // {
+    //   img: <FaFileInvoiceDollar style={{ fontSize: "20px" }} />,
+    //   text: "Schedule",
+    //   path: "/insights/schedule",
+    // },
+    // {
+    //   img: <IoSettings style={{ fontSize: "20px" }} />,
+    //   text: "Setting",
+    //   path: "/insights/setting",
+    // },
   ];
 
   const handleLogout = () => {
@@ -57,7 +57,7 @@ const Sidebar = () => {
     const fetchData = async () => {
       try {
         const response2 = await RoleData();
-        console.log(response2.data);
+        // console.log(response2.data);
         setRole(response2.data);
       } catch (error) {
         console.error(

@@ -14,7 +14,7 @@ const Task = () => {
     const [status,setStatus]=useState({status:"",task_id:"",user_id:Details?._id})
 
     const getInfo = (e) => {
-        console.log(`${e.target.name}:${e.target.checked}`);
+        // console.log(`${e.target.name}:${e.target.checked}`);
       
         if (e.target.checked == false) {
           setStatus((prevState) => ({
@@ -42,7 +42,7 @@ const Task = () => {
           // Only call UpdateTask when the status is updated and task_id exists
           UpdateTask(status)
             .then((res) => {
-              console.log("Task updated successfully:", res);
+            //   console.log("Task updated successfully:", res);
               setStatus({
                 status: "",
                 task_id: "",

@@ -12,6 +12,7 @@ const apiKeys = {
   get_all_task:`${BASE_URI}task/all`,
   update_status:`${BASE_URI}task/update/status`,
   departmentname_by_id:`${BASE_URI}department/name`,
+  create_department:`${BASE_URI}department/create`,
   task_by_department_id:`${BASE_URI}task/all/department`,
 };
 

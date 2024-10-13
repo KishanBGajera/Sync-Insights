@@ -13,7 +13,7 @@ const DepartmentSummary = ({ id, name }) => {
       try {
         const userData = await GetTaskByDepartmentId(id);
         const tasks = userData.data;
-        console.log(tasks);
+        // console.log(tasks);
 
         const doneTasks = tasks.filter((task) => task.status === "completed");
         setDepartmentTasks(doneTasks);
@@ -67,8 +67,8 @@ const DepartmentSummary = ({ id, name }) => {
     }
   }, [departmentTasks]);
 
-  console.log("Sorted Completed Dates:", completedOnDates);
-  console.log("Date Count:", dateCount); // Output the counts of each date
+  // console.log("Sorted Completed Dates:", completedOnDates);
+  // console.log("Date Count:", dateCount); // Output the counts of each date
 
   return (
     <div>

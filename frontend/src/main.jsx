@@ -14,6 +14,7 @@ import ScheduleEmp from './Components/Employee/ScheduleEmp.jsx';
 import Dashboard from './Components/CEO/Dashboard.jsx';
 import Invoice from './components/CEO/Invoice.jsx';
 import ScheduleCEO from './components/CEO/ScheduleCEO.jsx';
+import CreateDepartment from './components/CEO/CreateDepartment.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,8 +46,8 @@ const router = createBrowserRouter([
       path: '/ceo/analytics',
       element: <Analytics />
     }, {
-      path: '/ceo/invoice',
-      element: <Invoice />
+      path: '/ceo/department',
+      element: <CreateDepartment />
     },{
       path:'/ceo/schedule',
       element:<ScheduleCEO />

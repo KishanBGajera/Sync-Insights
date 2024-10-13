@@ -43,7 +43,7 @@ const LineChart = ({ data, labels, backgroundColor='rgba(75, 192, 192, 0.6)', bo
             y: {
               beginAtZero: true, 
               min: 0,
-              max: 10
+              max: 12
             }
         }
     };

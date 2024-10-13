@@ -9,7 +9,7 @@ const DepartmentWiseSummary = () => {
     const fetchData = async () => {
       try {
         const response1 = await DepartmentData();
-        console.log(response1.data);
+        // console.log(response1.data);
         setDepartmentData(response1.data); // async state update
       } catch (error) {
         console.error(

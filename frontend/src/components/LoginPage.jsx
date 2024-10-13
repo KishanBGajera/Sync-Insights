@@ -12,7 +12,7 @@ const LoginPage = () => {
   const [role,setRole]=useState([]);
 
   const getInfo = (i) => {
-    console.log(i.target.name, i.target.value);
+    // console.log(i.target.name, i.target.value);
     setUser({ ...user, [i.target.name]: i.target.value });
   };
   // useEffect(() => {

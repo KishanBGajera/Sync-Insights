@@ -17,7 +17,7 @@ const Calendar = () => {
     created_by: "",
     assigned_to: "",
     deadline: "",
-    department_id: ""
+    department_id: "",
   });
 
   const handleTask = (index) => {
@@ -84,7 +84,9 @@ const Calendar = () => {
     return (
       <div className="calendar-header">
         <button onClick={() => changeMonth(-1)}>◀</button>
-        <div style={{ color: "#4f4e6a", fontSize: "18px" }}>{`${monthName} ${year}`}</div>
+        <div
+          style={{ color: "#4f4e6a", fontSize: "18px" }}
+        >{`${monthName} ${year}`}</div>
         <button onClick={() => changeMonth(1)}>▶</button>
       </div>
     );
@@ -104,15 +106,28 @@ const Calendar = () => {
   };
 
   const renderCells = () => {
-    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    const startOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+    const endOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    );
     const daysInMonth = endOfMonth.getDate();
-    const prevMonthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+    const prevMonthEnd = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      0
+    );
     const prevMonthDays = prevMonthEnd.getDate();
     const startDayOfWeek = startOfMonth.getDay();
     const daysArray = [];
 
-    const formatDay = (day) => `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+    const formatDay = (day) =>
+      `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
 
     // Fill in the dates from the previous month
     for (let i = startDayOfWeek; i > 0; i--) {
@@ -167,17 +182,23 @@ const Calendar = () => {
   };
 
   const changeMonth = (monthChange) => {
-    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + monthChange)));
+    setCurrentDate(
+      new Date(currentDate.setMonth(currentDate.getMonth() + monthChange))
+    );
   };
 
   return (
-    <div style={{ display: "flex", background: "#f7f7f8", position: "relative" }}>
+    <div
+      style={{ display: "flex", background: "#f7f7f8", position: "relative" }}
+    >
       <Sidebar></Sidebar>
       <h4 className="calendar-h4">Calendar</h4>
       {task && (
         <div className="create-event">
           <div className="event-header">
-            <p style={{ fontSize: "20px", fontWeight: "500" }}>Create an Event</p>
+            <p style={{ fontSize: "20px", fontWeight: "500" }}>
+              Create an Event
+            </p>
             <IoMdClose
               onClick={() => handleTask(null)}
               style={{
@@ -220,9 +241,20 @@ const Calendar = () => {
             }}
             placeholder="Task Description"
           ></textarea>
-          <div>
-            <p>Assign to: </p>
-            <select onChange={getInfo} name="assigned_to" id="">
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <p style={{ marginTop: "15px" }}>Assign to: </p>
+            <select
+              style={{
+                backgroundColor: "#f7f7f8",
+                padding: "6px 10px",
+                border: "none",
+                borderRadius: "10px",
+              }}
+              onChange={getInfo}
+              name="assigned_to"
+              id=""
+            >
+              <option value="">select</option>
               {data.map((user, index) => (
                 <option value={user._id} key={index}>
                   {user.first_name} {user.last_name}
@@ -265,8 +297,24 @@ const Calendar = () => {
               type="time"
             />
           </div>
-          <div style={{ width: "100%", marginTop: "10px", padding: "12px 0", textAlign: "center" }}>
-            <button onClick={handleInsertUser} style={{ border: "none", backgroundColor: "#605bff", color: "#ffffff", padding: "8px 11px", borderRadius: "10px" }}>
+          <div
+            style={{
+              width: "100%",
+              marginTop: "10px",
+              padding: "12px 0",
+              textAlign: "center",
+            }}
+          >
+            <button
+              onClick={handleInsertUser}
+              style={{
+                border: "none",
+                backgroundColor: "#605bff",
+                color: "#ffffff",
+                padding: "8px 11px",
+                borderRadius: "10px",
+              }}
+            >
               Save
             </button>
           </div>

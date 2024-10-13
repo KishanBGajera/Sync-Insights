@@ -241,8 +241,8 @@ const Analytics = () => {
           {button == 'product' ? <div className="analytics-container">
             <h4>Product Analytics</h4>
             <div className="date-container">
-              <input type="date" name="to" id="" />
-              <input type="date" name="from" id="" />
+              {/* <input type="date" name="to" id="" />
+              <input type="date" name="from" id="" /> */}
             </div>
           </div> : <div className="manager-header-content">
             <h4>Company List</h4>

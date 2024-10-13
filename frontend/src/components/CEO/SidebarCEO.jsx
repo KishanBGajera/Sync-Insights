@@ -6,6 +6,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 import { GrScheduleNew } from "react-icons/gr";
 import { IoSettings } from "react-icons/io5";
+import { GrOrganization } from "react-icons/gr";
 import { IoLogOut } from "react-icons/io5";
 import "../../style/Sidebar.css";
 import { AuthContext } from "../../store/AuthContext";
@@ -22,7 +23,7 @@ const SidebarCEO = () => {
     const fetchData = async () => {
       try {
         const response2 = await RoleData();
-        console.log(response2.data);
+        // console.log(response2.data);
         setRole(response2.data);
       } catch (error) {
         console.error(
@@ -56,20 +57,20 @@ const SidebarCEO = () => {
       path: "/ceo/analytics",
     },
     {
-      img: <FaFileInvoiceDollar style={{ fontSize: "20px" }} />,
-      text: "Invoice",
-      path: "/ceo/invoice",
+      img: <GrOrganization style={{ fontSize: "20px" }} />,
+      text: "Department",
+      path: "/ceo/department",
     },
-    {
-      img: <GrScheduleNew style={{ fontSize: "20px" }} />,
-      text: "Schedule",
-      path: "/ceo/Schedule",
-    },
-    {
-      img: <IoIosNotifications style={{ fontSize: "20px" }} />,
-      text: "Notification",
-      path: "/ceo/notification",
-    },
+    // {
+    //   img: <GrScheduleNew style={{ fontSize: "20px" }} />,
+    //   text: "Schedule",
+    //   path: "/ceo/Schedule",
+    // },
+    // {
+    //   img: <IoIosNotifications style={{ fontSize: "20px" }} />,
+    //   text: "Notification",
+    //   path: "/ceo/notification",
+    // },
     // { img: <IoSettings style={{ fontSize: '20px' }} />, text: 'Setting', path: '/ceo/setting' },
   ];
 

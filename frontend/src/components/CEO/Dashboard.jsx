@@ -11,7 +11,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
           const userData = await getAllTask();
-          console.log(userData.data)
+          // console.log(userData.data)
           setTask(userData.data);
           // console.log(userData.data.filter((task) => task.assigned_to === "67051b955927154766b96cf4")); 
           // setTask(userData);
