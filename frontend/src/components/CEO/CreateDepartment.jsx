@@ -32,7 +32,7 @@ const CreateDepartment = () => {
     createDepartment(departmet)
       .then((response) => {
         console.log(response.data);
-        alert("User registered successfully!");
+        alert("Department Created successfully!");
         setDepartment({
           department_name:"",manager_id:""
         });
