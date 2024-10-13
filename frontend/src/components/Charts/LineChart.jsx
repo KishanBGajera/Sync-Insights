@@ -13,7 +13,7 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const LineChart = ({ data, labels, backgroundColor, borderColor, width, height }) => {
+const LineChart = ({ data, labels, backgroundColor='rgba(75, 192, 192, 0.6)', borderColor='rgba(75, 192, 192, 1)', width, height }) => {
     const chartData = {
         labels: labels,
         datasets: [
@@ -39,6 +39,13 @@ const LineChart = ({ data, labels, backgroundColor, borderColor, width, height }
                 text: 'Line Chart',
             },
         },
+        scales: {
+            y: {
+              beginAtZero: true, 
+              min: 0,
+              max: 10
+            }
+        }
     };
 
     return (

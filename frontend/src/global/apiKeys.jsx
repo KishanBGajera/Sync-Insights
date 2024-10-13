@@ -11,6 +11,7 @@ const apiKeys = {
   get_task:`${BASE_URI}task/all`,
   get_all_task:`${BASE_URI}task/all`,
   update_status:`${BASE_URI}task/update/status`,
+  departmentname_by_id:`${BASE_URI}department/name`,
 };
 
 export { BASE_URI, apiKeys };

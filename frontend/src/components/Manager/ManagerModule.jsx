@@ -304,7 +304,7 @@ const ManagerModule = () => {
                     }}
                     required
                     name="status"
-                  >
+                  ><option value="">select</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                   </select>
@@ -332,6 +332,7 @@ const ManagerModule = () => {
                     required
                     name="role_id"
                   >
+                    <option value="">select</option>
                     {role.map((item, index) => (
                       <option value={item._id} key={index}>
                         {item.role_name}
@@ -362,6 +363,7 @@ const ManagerModule = () => {
                     required
                     name="department_id"
                   >
+                    <option value="">select</option>
                     {dept.map((item, index) => (
                       <option value={item._id} key={index}>
                         {item.department_name}

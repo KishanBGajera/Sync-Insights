@@ -111,8 +111,8 @@ const Sidebar = () => {
                 src={`https://ui-avatars.com/api/?name=${Details?.first_name}+${Details?.last_name}`}
                 alt="Avatar"
               />
-              <p style={{ fontSize: "12px" }}>
-                {Details?.first_name} <br />
+              <p style={{ fontSize: "10px" }}>
+                <span style={{fontSize:"12px",fontWeight:500}}>{Details?.first_name}</span> <br />
                 {data}
               </p>
               <IoLogOut
