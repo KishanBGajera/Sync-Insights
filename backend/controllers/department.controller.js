@@ -1,4 +1,5 @@
 const Department = require('../models/department.model');
+const User = require('../models/user.model');
 
 // Get all departments
 exports.getAllDepartments = async (req, res) => {
@@ -44,11 +45,15 @@ exports.getDepartmentNameById = async (req, res) => {
 exports.createDepartment = async (req, res) => {
   try {
     const { department_name, manager_id } = req.body;
+
+    
     const newDepartment = await Department.create({
       department_name, manager_id
     });
+    
+    const status = await User.updateOne({ _id: manager_id }, { department_id: newDepartment._id });
 
-    res.status(201).json(newDepartment);
+    res.status(201).json({newDepartment, manager: status});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

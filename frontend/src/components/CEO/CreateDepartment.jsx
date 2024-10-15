@@ -4,7 +4,7 @@ import { UserData,createDepartment } from "../../Global/apiCall";
 
 const CreateDepartment = () => {
   const [data, setData] = useState([]);
-  const [departmet,setDepartment]=useState({department_name:"",manager_id:""})
+  const [department,setDepartment]=useState({department_name:"",manager_id:""})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +29,7 @@ const CreateDepartment = () => {
 
   const handleCreateDepartment = (e) => {
     e.preventDefault(); // Prevent default form submission
-    createDepartment(departmet)
+    createDepartment(department)
       .then((response) => {
         console.log(response.data);
         alert("Department Created successfully!");
