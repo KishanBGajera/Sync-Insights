@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import LineChart from "../Charts/LineChart";
-import { getAllTask,DepartmentData, GetDepartmentNameById } from "../../global/apiCall";
+import {
+  getAllTask,
+  DepartmentData,
+  GetDepartmentNameById,
+} from "../../global/apiCall";
 import PieChart from "../Charts/PieChart";
 import DepartmentWiseSummary from "./DepartmentWiseSummary";
 
@@ -10,9 +14,11 @@ const OverallStats = () => {
   const [dateCount, setDateCount] = useState({});
   const [departmentCount, setDepartmentCount] = useState({});
   const [departmentNames, setDepartmentNames] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const userData = await getAllTask();
         const departmentData = await DepartmentData();
@@ -23,7 +29,8 @@ const OverallStats = () => {
         // console.log("department",departmentData)
 
         setCompletedTasks(doneTasks);
-        setDepartmentNames(departmentData.data)
+        setDepartmentNames(departmentData.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error while retrieving data from task by userId", error);
       }
@@ -87,36 +94,38 @@ const OverallStats = () => {
     setDepartmentCount(count);
   }, [completedTasks]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchDepartmentNames = async () => {
-        const IDs = Object.keys(departmentCount);
-        const names = [];
+      const IDs = Object.keys(departmentCount);
+      const names = [];
 
-        for (const id of IDs) {
-            if (id === "undefined") {
-                names.push("Not Specified");
+      for (const id of IDs) {
+        if (id === "undefined") {
+          names.push("Not Specified");
+        } else {
+          try {
+            const dept = await GetDepartmentNameById(id);
+            if (dept.status === 200) {
+              names.push(dept.data.department_name);
             } else {
-                try {
-                    const dept = await GetDepartmentNameById(id);
-                    if (dept.status === 200) {
-                        names.push(dept.data.department_name);
-                    } else {
-                        console.error('Failed to fetch department name:', dept.statusText);
-                        names.push("Error Fetching Department Name");
-                    }
-                } catch (error) {
-                    console.error('Error fetching department name:', error);
-                    names.push("Error Fetching Department Name");
-                }
+              console.error(
+                "Failed to fetch department name:",
+                dept.statusText
+              );
+              names.push("Error Fetching Department Name");
             }
+          } catch (error) {
+            console.error("Error fetching department name:", error);
+            names.push("Error Fetching Department Name");
+          }
         }
+      }
 
-        setDepartmentNames(names);
+      setDepartmentNames(names);
     };
 
     fetchDepartmentNames();
-}, [departmentCount]);
-
+  }, [departmentCount]);
 
   // console.log("departmentNames", departmentNames)
   // console.log("Sorted Completed Dates:", completedOnDates);
@@ -124,24 +133,46 @@ useEffect(() => {
   // console.log("Department Count:", departmentCount);
 
   return (
-    <div style={{ border: "0px solid black", width: "100%", padding: "16px"}}>
+    <div style={{ border: "0px solid black", width: "100%", padding: "16px" }}>
       <h3 style={{ borderBottom: "1px solid #9a9a9a" }}>Stats Summary</h3>
-      <div style={{display:"flex",gap:'4px'}}>
-      <LineChart
-        data={Object.values(dateCount)}
-        labels={Object.keys(dateCount)}
-        width={600}
-        height={432}
-      ></LineChart>
-      <PieChart data={Object.values(departmentCount)}
-        labels={Object.values(departmentNames)}
-        width={500}
-        height={432} />
-      </div>
-      <div style={{marginTop:'24px',overflow:'hidden'}}>
-        <h5 style={{ borderBottom: "1px solid #9a9a9a" }}>Department-wise Summary</h5>
-        <DepartmentWiseSummary />
-      </div>
+      {loading ? (
+        <div
+          style={{
+            border: "0px solid black",
+            marginTop: "20px",
+            height: "200px",
+            alignItems: "center",
+          }}
+          className="d-flex justify-content-center"
+        >
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: "flex", gap: "4px" }}>
+            <LineChart
+              data={Object.values(dateCount)}
+              labels={Object.keys(dateCount)}
+              width={600}
+              height={432}
+            ></LineChart>
+            <PieChart
+              data={Object.values(departmentCount)}
+              labels={Object.values(departmentNames)}
+              width={500}
+              height={432}
+            />
+          </div>
+          <div style={{ marginTop: "24px", overflow: "hidden" }}>
+            <h5 style={{ borderBottom: "1px solid #9a9a9a" }}>
+              Department-wise Summary
+            </h5>
+            <DepartmentWiseSummary />
+          </div>
+        </>
+      )}
     </div>
   );
 };

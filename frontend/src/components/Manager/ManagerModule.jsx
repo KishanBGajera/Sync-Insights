@@ -105,6 +105,7 @@ const ManagerModule = () => {
 
   const [makeVisible, setMakeVisible] = useState(null);
   const [employee, setEmployee] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [registerUser, setregisterUser] = useState({
     first_name: "",
     last_name: "",
@@ -135,6 +136,7 @@ const ManagerModule = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response1 = await DepartmentData();
@@ -143,7 +145,8 @@ const ManagerModule = () => {
         // console.log(response1.data, response2.data, userData.data);
         setDept(response1.data); // async state update
         setRole(response2.data);
-        setData(userData.data); // async state update
+        setData(userData.data);
+        setLoading(false); // async state update
       } catch (error) {
         console.error(
           "Error while retrieving data from department and role",
@@ -304,7 +307,8 @@ const ManagerModule = () => {
                     }}
                     required
                     name="status"
-                  ><option value="">select</option>
+                  >
+                    <option value="">select</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                   </select>
@@ -411,58 +415,76 @@ const ManagerModule = () => {
                 Add Employee
               </button>
             </div>
-            <div className="table-container">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, index) => (
-                    <tr onClick={() => handleVisibility(index)} key={index}>
-                      <td
-                        style={{
-                          borderTopLeftRadius: "20px",
-                          borderBottomLeftRadius: "20px",
-                        }}
-                      >
-                        <div className="table-cell">
-                          <img
-                            className="avatar"
-                            src={`https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`}
-                            alt="Avatar"
-                          />
-                          <span>
-                            {item.first_name} {item.last_name}
-                          </span>
-                        </div>
-                      </td>
-                      <td>{item.email}</td>
-                      {dept.map((val, index) =>
-                        item.department_id === val._id ? (
-                          <td key={index}>{val.department_name}</td>
-                        ) : null
-                      )}
-
-                      <td
-                        style={{
-                          borderTopRightRadius: "20px",
-                          borderBottomRightRadius: "20px",
-                        }}
-                      >
-                        <span className={`gender ${item.status.toLowerCase()}`}>
-                          {item.status}
-                        </span>
-                      </td>
+            {loading ? (
+              <div
+                style={{
+                  border: "0px solid black",
+                  marginTop: "20px",
+                  height: "200px",
+                  alignItems: "center",
+                }}
+                className="d-flex justify-content-center"
+              >
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : (
+              <div className="table-container">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Department</th>
+                      <th>Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {data.map((item, index) => (
+                      <tr onClick={() => handleVisibility(index)} key={index}>
+                        <td
+                          style={{
+                            borderTopLeftRadius: "20px",
+                            borderBottomLeftRadius: "20px",
+                          }}
+                        >
+                          <div className="table-cell">
+                            <img
+                              className="avatar"
+                              src={`https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`}
+                              alt="Avatar"
+                            />
+                            <span>
+                              {item.first_name} {item.last_name}
+                            </span>
+                          </div>
+                        </td>
+                        <td>{item.email}</td>
+                        {dept.map((val, index) =>
+                          item.department_id === val._id ? (
+                            <td key={index}>{val.department_name}</td>
+                          ) : null
+                        )}
+
+                        <td
+                          style={{
+                            borderTopRightRadius: "20px",
+                            borderBottomRightRadius: "20px",
+                          }}
+                        >
+                          <span
+                            className={`gender ${item.status.toLowerCase()}`}
+                          >
+                            {item.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
           {data.map(
             (item, index) =>
@@ -474,13 +496,17 @@ const ManagerModule = () => {
                       src={`https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`}
                       alt={item.name}
                     />
-                    <h4 style={{ marginTop: "5px" }}>{item.first_name} {item.last_name}</h4>
+                    <h4 style={{ marginTop: "5px" }}>
+                      {item.first_name} {item.last_name}
+                    </h4>
                     <p style={{ marginTop: "-8px", fontSize: "12px" }}>
                       {item.type}
                     </p>
                   </div>
                   <div className="employee-info-contact">
-                    <h5 style={{marginTop:"-10px",marginBottom:'20px'}}>Contact Info</h5>
+                    <h5 style={{ marginTop: "-10px", marginBottom: "20px" }}>
+                      Contact Info
+                    </h5>
                     <div className="contact-info">
                       <MdEmail style={{ fontSize: "25px", color: "b4b4bf" }} />
                       <p>{item.email}</p>
