@@ -79,7 +79,7 @@ const LoginPage = () => {
             />
             {/* <input type="password" name="Password" required
               className="input" /> */}
-            <a className="forgot" href="#">Forgot password?</a>
+            {/* <a className="forgot" href="#">Forgot password?</a> */}
             <div className="button">
               {/* <Link to="insight" className="Link"><button className="login">Login</button></Link> */}
               <button className="login" type="submit">Login</button>
