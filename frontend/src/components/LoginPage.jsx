@@ -37,10 +37,10 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response.data.data);
         localStorage.setItem("Info", JSON.stringify(response.data.data));
-        if(response.data.data._id=="6706715e74f0afc0bcfead3a"){
+        if(response.data.data.role_id=="6706715e74f0afc0bcfead3a"){
           window.location.href="/insights/dashboard"
         }
-        else if(response.data.data._id=="6706718274f0afc0bcfead44"){
+        else if(response.data.data.role_id=="6706718274f0afc0bcfead44"){
           window.location.href="/ceo/dashboard"
         }
         else{
