@@ -4,6 +4,7 @@ import "../../style/Manager/Calendar.css";
 import Sidebar from "./Sidebar";
 import { InsertTask, UserData } from "../../global/apiCall.jsx";
 import { AuthContext } from "../../store/AuthContext.jsx";
+import Alert from "../../utils/Alert.jsx";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -19,6 +20,8 @@ const Calendar = () => {
     deadline: "",
     department_id: "",
   });
+  const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState();
 
   const handleTask = (index) => {
     setTask(task === index ? null : index);
@@ -64,7 +67,10 @@ const Calendar = () => {
     setTask(null); // Close task creation modal after submission
     InsertTask(newTask)
       .then((response) => {
-        alert("Task added successfully!");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 6000);
+        setMessage("Task added successfully!");
+        // alert("Task added successfully!");
         settask({
           task_name: "",
           task_description: "",
@@ -73,7 +79,9 @@ const Calendar = () => {
         });
       })
       .catch((error) => {
-        alert("Failed to register task. Please try again.");
+        setShowAlert(true);
+        setMessage("Error adding task!");
+        // alert("Failed to register task. Please try again.");
       });
   };
 
@@ -321,6 +329,7 @@ const Calendar = () => {
         </div>
       )}
       <div className="calendar">
+        {showAlert && <Alert message={message} />}
         {renderHeader()}
         {renderDays()}
         {renderCells()}

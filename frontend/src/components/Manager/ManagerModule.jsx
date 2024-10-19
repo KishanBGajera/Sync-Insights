@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Sidebar from "./Sidebar.jsx";
 import { IoAddOutline } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
@@ -13,6 +13,7 @@ import {
   UserData,
 } from "../../global/apiCall.jsx";
 import SideChart from "../../utils/SideChart.jsx";
+import Alert from "../../utils/Alert.jsx";
 
 const ManagerModule = () => {
   // const data = [
@@ -116,6 +117,16 @@ const ManagerModule = () => {
     department_id: "",
     status: "",
   });
+  const firstName = useRef();
+  const lastName = useRef();
+  const email = useRef();
+  const username = useRef();
+  const password = useRef();
+  const role_id = useRef();
+  const department_id = useRef();
+  const status = useRef();
+  const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState();
   const [data, setData] = useState([]);
   const [dept, setDept] = useState([]);
   const [role, setRole] = useState([]);
@@ -164,8 +175,17 @@ const ManagerModule = () => {
     e.preventDefault(); // Prevent default form submission
     InsertUser(registerUser)
       .then((response) => {
-        // console.log(response.data);
-        alert("User registered successfully!");
+        firstName.current.value = "";
+        lastName.current.value = "";
+        email.current.value = "";
+        password.current.value = "";
+        username.current.value = "";
+        role_id.current.value = "";
+        department_id.current.value = "";
+        status.current.value = "";
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 6000);
+        setMessage("User Registerd Successfully"); // Set the alert to be visible
         setregisterUser({
           first_name: "",
           last_name: "",
@@ -175,11 +195,12 @@ const ManagerModule = () => {
           role_id: "",
           department_id: "",
         });
-        window.location.href = "/insights/dashboard";
       })
       .catch((error) => {
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 6000);
         console.error("Error:", error);
-        alert("Failed to register user. Please try again.");
+        setMessage("Failed to register user. Please try again.");
       });
   };
 
@@ -192,6 +213,7 @@ const ManagerModule = () => {
             <IoIosArrowRoundBack style={{ fontSize: "28px" }} />
             <p style={{ fontSize: "18px" }}>Back</p>
           </div>
+          {showAlert && <Alert message={message} />}
           <div className="employee-insert">
             <div className="employee-form">
               <h3>New Employee </h3>
@@ -214,6 +236,7 @@ const ManagerModule = () => {
                     required
                     name="first_name"
                     type="text"
+                    ref={firstName}
                   />
                 </div>
                 <div
@@ -231,6 +254,7 @@ const ManagerModule = () => {
                     name="last_name"
                     required
                     type="text"
+                    ref={lastName}
                   />
                 </div>
                 <div
@@ -248,6 +272,7 @@ const ManagerModule = () => {
                     name="username"
                     required
                     type="text"
+                    ref={username}
                   />
                 </div>
                 <div
@@ -265,6 +290,7 @@ const ManagerModule = () => {
                     required
                     name="password"
                     type="text"
+                    ref={password}
                   />
                 </div>
                 <div
@@ -282,6 +308,7 @@ const ManagerModule = () => {
                     name="email"
                     required
                     type="email"
+                    ref={email}
                   />
                 </div>
 
@@ -307,6 +334,7 @@ const ManagerModule = () => {
                     }}
                     required
                     name="status"
+                    ref={status}
                   >
                     <option value="">select</option>
                     <option value="active">Active</option>
@@ -335,6 +363,7 @@ const ManagerModule = () => {
                     }}
                     required
                     name="role_id"
+                    ref={role_id}
                   >
                     <option value="">select</option>
                     {role.map((item, index) => (
@@ -366,6 +395,7 @@ const ManagerModule = () => {
                     }}
                     required
                     name="department_id"
+                    ref={department_id}
                   >
                     <option value="">select</option>
                     {dept.map((item, index) => (

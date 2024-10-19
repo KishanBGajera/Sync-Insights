@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SidebarCEO from "./SidebarCEO";
-import { UserData,createDepartment } from "../../Global/apiCall";
+import { UserData, createDepartment } from "../../Global/apiCall";
+import Alert from "../../utils/Alert";
 
 const CreateDepartment = () => {
   const [data, setData] = useState([]);
-  const [department,setDepartment]=useState({department_name:"",manager_id:""})
+  const [department, setDepartment] = useState({
+    department_name: "",
+    manager_id: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState();
+  const department_name = useRef();
+  const manager_id = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,16 +39,26 @@ const CreateDepartment = () => {
     e.preventDefault(); // Prevent default form submission
     createDepartment(department)
       .then((response) => {
-        console.log(response.data);
-        alert("Department Created successfully!");
+        // console.log(response.data);
+        department_name.current.value = "";
+        manager_id.current.value = "";
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 6000);
+        setMessage("Department Created successfully!");
+        // alert("Department Created successfully!");
         setDepartment({
-          department_name:"",manager_id:""
+          department_name: "",
+          manager_id: "",
         });
-        window.location.href = "/ceo/department";
       })
       .catch((error) => {
+        department_name.current.value = "";
+        manager_id.current.value = "";
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 6000);
+        setMessage("Error while creating department");
         console.error("Error:", error);
-        alert("Failed to create department. Please try again.");
+        // alert("Failed to create department. Please try again.");
       });
   };
 
@@ -56,18 +74,39 @@ const CreateDepartment = () => {
           height: "100vh",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
         }}
       >
+        {showAlert && (
+          <div style={{ position: "absolute", top: "26px", width: "100%" }}>
+            <Alert message={message} />
+          </div>
+        )}
         <div
           style={{
             backgroundColor: "#ffffff",
             padding: "20px",
             width: "350px",
-            borderRadius:'10px'
+            borderRadius: "10px",
           }}
         >
           <h5>Create Department</h5>
-          <input type="text" onChange={getInfo} required placeholder="Department Name" name="department_name" style={{ width: "100%", marginTop: "12px",border:'none',backgroundColor:'#f7f7f8',padding:'6px', borderRadius:'10px' }} />
+          <input
+            type="text"
+            onChange={getInfo}
+            required
+            placeholder="Department Name"
+            ref={department_name}
+            name="department_name"
+            style={{
+              width: "100%",
+              marginTop: "12px",
+              border: "none",
+              backgroundColor: "#f7f7f8",
+              padding: "6px",
+              borderRadius: "10px",
+            }}
+          />
 
           <div
             style={{
@@ -89,6 +128,7 @@ const CreateDepartment = () => {
               onChange={getInfo}
               name="manager_id"
               id=""
+              ref={manager_id}
             >
               <option value="">select</option>
               {data.map((user, index) => (
@@ -106,7 +146,18 @@ const CreateDepartment = () => {
               marginTop: "12px",
             }}
           >
-            <button onClick={handleCreateDepartment} style={{border:"none",padding:'8px 12px',borderRadius:'10px',color:'#ffffff',backgroundColor:'#605bff'}}>Create</button>
+            <button
+              onClick={handleCreateDepartment}
+              style={{
+                border: "none",
+                padding: "8px 12px",
+                borderRadius: "10px",
+                color: "#ffffff",
+                backgroundColor: "#605bff",
+              }}
+            >
+              Create
+            </button>
           </div>
         </div>
       </div>
