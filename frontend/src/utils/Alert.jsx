@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import '../style/Alert.css'; // Importing CSS for styling
+import '../style/Alert.css';
 
 const Alert = ({message}) => {
-  const [visible, setVisible] = useState(true); // State to control alert visibility
-  const [progress, setProgress] = useState(100); // State for progress bar (100% -> 0%)
+  const [visible, setVisible] = useState(true);
+  const [progress, setProgress] = useState(100); 
 
-  // Handle the progress animation
   useEffect(() => {
     if (progress > 0) {
       const interval = setInterval(() => {
-        setProgress(prevProgress => prevProgress - 1);
-      }, 50); // Adjust this to control the speed of the progress line
-      return () => clearInterval(interval); // Clean up interval on unmount
+        setProgress(prevProgress => prevProgress - 2);
+      }, 50); 
+      return () => clearInterval(interval); 
     } else {
-      setVisible(false); // Hide the alert when the progress reaches 0
+      setVisible(false);
     }
   }, [progress]);
 
-  // Manually close the alert
-  const closeAlert = () => {
-    setVisible(false);
-  };
+  // const closeAlert = () => {
+  //   setVisible(false);
+  // };
 
   return (
     <>
@@ -28,9 +26,9 @@ const Alert = ({message}) => {
         <div className="alert-container">
           <div className="alert-content">
             <p>{message}</p>
-            <button onClick={closeAlert} className="close-btn">
+            {/* <button onClick={closeAlert} className="close-btn">
               &times;
-            </button>
+            </button> */}
           </div>
           <div
             className="alert-progress"
