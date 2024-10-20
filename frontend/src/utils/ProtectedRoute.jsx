@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../store/AuthContext"; // Import AuthContext
+import Unauthorized from "../components/Unauthorized";
 
 function ProtectedRoute({ children, allowedRoleIds }) {
   const { Details } = useContext(AuthContext);
@@ -15,7 +16,8 @@ function ProtectedRoute({ children, allowedRoleIds }) {
 
   if (isLoading) {
     return (
-      <div>Access Denied. You do not have permission to view this page.</div>
+      // <div>Access Denied. You do not have permission to view this page.</div>
+      <Unauthorized />
     );
   }
 

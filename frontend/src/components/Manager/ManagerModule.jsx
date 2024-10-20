@@ -208,13 +208,13 @@ const ManagerModule = () => {
     <div style={{ display: "flex" }}>
       <Sidebar></Sidebar>
       {employee ? (
-        <div className="employee-container">
+        <div style={{position:"relative"}} className="employee-container">
           <div onClick={handleEmployee} className="employee-container-header">
             <IoIosArrowRoundBack style={{ fontSize: "28px" }} />
             <p style={{ fontSize: "18px" }}>Back</p>
           </div>
-          {showAlert && <Alert message={message} />}
-          <div className="employee-insert">
+          {showAlert && <div style={{width:"100%",position:"absolute",top:'22px'}}><Alert message={message} /></div>}
+          <div style={{marginTop:'30px'}} className="employee-insert">
             <div className="employee-form">
               <h3>New Employee </h3>
               <p style={{ color: "#9a9a9a" }}>

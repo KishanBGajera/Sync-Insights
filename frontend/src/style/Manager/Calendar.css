@@ -1,12 +1,13 @@
 .calendar {
   width: 900px;
-  margin: 20px auto;
-  margin-top: 65px;
+  margin: 0px auto;
+  margin-top: 90px;
   padding: 0 15px;
   /* border: 1px solid #ccc; */
   border-radius: 10px;
   overflow: hidden;
   font-family: Arial, sans-serif;
+  height: max-content;
 }
 
 .calendar-header {

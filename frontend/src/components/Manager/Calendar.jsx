@@ -80,6 +80,7 @@ const Calendar = () => {
       })
       .catch((error) => {
         setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 6000);
         setMessage("Error adding task!");
         // alert("Failed to register task. Please try again.");
       });
@@ -328,8 +329,8 @@ const Calendar = () => {
           </div>
         </div>
       )}
+      {showAlert && <div style={{position:'absolute',width:'100%',top:'8px',paddingLeft:'220px'}}><Alert message={message} /></div>}
       <div className="calendar">
-        {showAlert && <Alert message={message} />}
         {renderHeader()}
         {renderDays()}
         {renderCells()}
