@@ -1,0 +1,41 @@
+/* Full-screen flex container */
+.unauthorized-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9; /* Replace with desired background color */
+    color: #333; /* Replace with desired foreground color */
+  }
+  
+  /* Centered content */
+  .unauthorized-content {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /* Icon styling */
+  .icon {
+    margin: 0 auto 16px;
+    height: 48px;
+    width: 48px;
+    color: #e3342f; /* Destructive color (red) */
+  }
+  
+  /* Heading */
+  .heading {
+    margin-bottom: 16px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000; /* Heading text color */
+  }
+  
+  /* Description text */
+  .description {
+    margin-bottom: 32px;
+    font-size: 1.125rem;
+    color: #6c757d; /* Muted foreground color */
+  }
+  
