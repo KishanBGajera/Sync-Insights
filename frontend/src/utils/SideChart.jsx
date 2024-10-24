@@ -68,7 +68,7 @@ const SideChart = ({ id }) => {
   return (
     <div>
       <h5>Insights</h5>
-      <BarChart data={Object.values(dateCount).slice(dateCount.length-5,dateCount.length)} labels={Object.keys(dateCount)} width={200} height={232} />
+      <BarChart data={Object.values(dateCount).slice(-5)} labels={Object.keys(dateCount).slice(-5)} width={200} height={228} />
     </div>
   );
 };

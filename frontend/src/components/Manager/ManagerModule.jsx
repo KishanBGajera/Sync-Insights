@@ -533,7 +533,7 @@ const ManagerModule = () => {
                       {item.type}
                     </p>
                   </div>
-                  <div className="employee-info-contact">
+                  <div style={{overflow:'hidden'}} className="employee-info-contact">
                     <h5 style={{ marginTop: "-10px", marginBottom: "20px" }}>
                       Contact Info
                     </h5>

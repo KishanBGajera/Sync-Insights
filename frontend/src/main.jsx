@@ -19,6 +19,7 @@ import Invoice from "./components/CEO/Invoice.jsx";
 import ScheduleCEO from "./components/CEO/ScheduleCEO.jsx";
 import CreateDepartment from "./components/CEO/CreateDepartment.jsx";
 import Unauthorized from "./components/Unauthorized.jsx";
+import AssignedTasks from "./components/Manager/AssignedTasks.jsx";
 
 // Setup routes with role-based protection using roleIds
 const router = createBrowserRouter([
@@ -49,6 +50,19 @@ const router = createBrowserRouter([
             ]}
           >
             <Calendar />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/insights/tasks",
+        element: (
+          <ProtectedRoute
+            allowedRoleIds={[
+              "6706715e74f0afc0bcfead3a",
+              "670853628c3d2e258a60836b",
+            ]}
+          >
+            <AssignedTasks />
           </ProtectedRoute>
         ),
       },
