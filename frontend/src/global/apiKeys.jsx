@@ -14,6 +14,7 @@ const apiKeys = {
   departmentname_by_id:`${BASE_URI}department/name`,
   create_department:`${BASE_URI}department/create`,
   task_by_department_id:`${BASE_URI}task/all/department`,
+  task_by_created_by_id:`${BASE_URI}task/all/created_by`,
 };
 
 export { BASE_URI, apiKeys };
