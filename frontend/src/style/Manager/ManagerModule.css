@@ -76,13 +76,22 @@
     background-color: #ffdce5;
     color: #e83e46;
 }
+.gender.completed {
+    background-color: #d0e7ff;
+    color: #007bff;
+}
+
+.gender.pending {
+    background-color: #ffdce5;
+    color: #e83e46;
+}
 
 .employee-info {
     width: max-content;
     height: 100vh;
     min-width: 300px;
     /* border: 1px solid black; */
-    padding: 20px;
+    padding: 15px;
 }
 
 .employee-info-header {

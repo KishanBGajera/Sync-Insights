@@ -6,6 +6,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
+import { FaTasks } from "react-icons/fa";
 import "../../style/Sidebar.css";
 import { useContext,useState,useEffect } from 'react';
 import { AuthContext } from "../../store/AuthContext";
@@ -34,6 +35,11 @@ const Sidebar = () => {
       img: <FaCalendarAlt style={{ fontSize: "20px" }} />,
       text: "Calendar",
       path: "/insights/calendar",
+    },
+    {
+      img: <FaTasks  style={{ fontSize: "20px" }} />,
+      text: "Assigned Tasks",
+      path: "/insights/tasks",
     },
     // {
     //   img: <FaFileInvoiceDollar style={{ fontSize: "20px" }} />,
