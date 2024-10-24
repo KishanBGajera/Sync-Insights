@@ -1,15 +1,14 @@
-
 import { IoMdClose } from "react-icons/io";
 import { FaRegCopyright } from "react-icons/fa6";
 // import logo from './logo.jpg';
 import { Link } from "react-router-dom";
-import '../style/LoginPage.css';
+import "../style/LoginPage.css";
 import { useContext, useState } from "react";
 import { loginUser } from "../Global/apiCall";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
-  const [role,setRole]=useState([]);
+  const [role, setRole] = useState([]);
 
   const getInfo = (i) => {
     // console.log(i.target.name, i.target.value);
@@ -37,14 +36,12 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response.data.data);
         localStorage.setItem("Info", JSON.stringify(response.data.data));
-        if(response.data.data.role_id=="6706715e74f0afc0bcfead3a"){
-          window.location.href="/insights/dashboard"
-        }
-        else if(response.data.data.role_id=="6706718274f0afc0bcfead44"){
-          window.location.href="/ceo/dashboard"
-        }
-        else{
-          window.location.href="/employee/dashboard"
+        if (response.data.data.role_id == "6706715e74f0afc0bcfead3a") {
+          window.location.href = "/insights/dashboard";
+        } else if (response.data.data.role_id == "6706718274f0afc0bcfead44") {
+          window.location.href = "/ceo/dashboard";
+        } else {
+          window.location.href = "/employee/dashboard";
         }
       })
       .catch((error) => {
@@ -57,7 +54,24 @@ const LoginPage = () => {
     <div className="main-container-login">
       <div className="login-container">
         <div className="Name-container">
-          <h2 className="name">Log in</h2>
+          <div
+            style={{ paddingTop: "64px", border: "0px solid black" }}
+            className="sidebar-header"
+          >
+            <img src="/Syn_logo.png" alt="Sync Insights" width={65} />
+            <h2 style={{ fontWeight: "600" }}>Sync Insights</h2>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              border: "0px solid black",
+              justifyContent: "center",
+              paddingTop: "24px",
+            }}
+          >
+            <h4 className="name">Log in</h4>
+          </div>
         </div>
         <div className="form-container">
           <form className="form" method="post" onSubmit={handleLoginForm}>
@@ -70,7 +84,7 @@ const LoginPage = () => {
             />
             {/* <input type="email" name="Email" required
               className="input" /> */}
-            <label htmlFor="password" >Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               name="password"
@@ -82,9 +96,10 @@ const LoginPage = () => {
             {/* <a className="forgot" href="#">Forgot password?</a> */}
             <div className="button">
               {/* <Link to="insight" className="Link"><button className="login">Login</button></Link> */}
-              <button className="login" type="submit">Login</button>
+              <button className="login" type="submit">
+                Login
+              </button>
             </div>
-
           </form>
         </div>
       </div>
@@ -95,9 +110,8 @@ const LoginPage = () => {
       {/* <footer className="last">
             <span>Copyright <FaRegCopyright /> 2024 Sync Insights</span>
       </footer> */}
-
     </div>
   );
-}
+};
 
 export default LoginPage;
