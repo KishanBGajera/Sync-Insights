@@ -306,7 +306,7 @@ const Task = () => {
                 style={{
                   border: "0px solid black",
                   backgroundColor: "#ffffff",
-                  height: "250px",
+                  maxHeight: "244px",
                   overflow: "scroll",
                   marginTop: "20px",
                   borderRadius: "12px",

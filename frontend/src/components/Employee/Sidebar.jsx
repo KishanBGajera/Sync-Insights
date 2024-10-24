@@ -4,6 +4,7 @@ import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
+import { MdInsights } from "react-icons/md";
 import { IoIosNotifications } from "react-icons/io";
 import "../../style/Sidebar.css";
 import { useContext, useState, useEffect } from "react";
@@ -22,9 +23,9 @@ const Sidebar = () => {
       path: "/employee/dashboard",
     },
     {
-      img: <FaCalendarAlt style={{ fontSize: "20px" }} />,
-      text: "Calendar",
-      path: "/employee/calendar",
+      img: <MdInsights style={{ fontSize: "20px" }} />,
+      text: "Insights",
+      path: "/employee/insight",
     },
     // {
     //   img: <FaFileInvoiceDollar style={{ fontSize: "20px" }} />,
