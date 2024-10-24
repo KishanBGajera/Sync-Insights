@@ -50,6 +50,17 @@ exports.getTasksByUserId = async (req, res) => {
     }
 }
 
+exports.getTasksByCreatedById = async (req, res) => {
+    try {
+        const user_id = req.params.created_by;
+        const foundTasks = await Task.find({ created_by: created_by });
+        res.status(200).json(foundTasks);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.updateTaskStatus = async (req, res) => {
     try {
         const { task_id, status } = req.body;

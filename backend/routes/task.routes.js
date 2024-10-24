@@ -11,6 +11,9 @@ router.get('/all/department/:id', taskController.getTasksByDepartmentId);
 // GET a task by ID
 router.get('/all/:user_id', taskController.getTasksByUserId);
 
+// GET tasks by assigned
+router.get('/all/created_by/:created_by', taskController.getTasksByCreatedById);
+
 // POST a new task
 router.post('/create/', taskController.createTask);
 
