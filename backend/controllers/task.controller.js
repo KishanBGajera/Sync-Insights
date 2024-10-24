@@ -52,7 +52,7 @@ exports.getTasksByUserId = async (req, res) => {
 
 exports.getTasksByCreatedById = async (req, res) => {
     try {
-        const user_id = req.params.created_by;
+        const created_by = req.params.created_by;
         const foundTasks = await Task.find({ created_by: created_by });
         res.status(200).json(foundTasks);
     }
