@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./store/AuthContext.jsx"; // Import AuthProvider
+import store from "./store/AuthContext.js"; // Import AuthProvider
 import ProtectedRoute from "./utils/ProtectedRoute.jsx"; // Import ProtectedRoute
 
 import LoginPage from "./Components/LoginPage.jsx";
@@ -21,6 +21,7 @@ import CreateDepartment from "./components/CEO/CreateDepartment.jsx";
 import Unauthorized from "./components/Unauthorized.jsx";
 import AssignedTasks from "./components/Manager/AssignedTasks.jsx";
 import Insights from "./components/Employee/Insights.jsx";
+import { Provider } from "react-redux";
 
 // Setup routes with role-based protection using roleIds
 const router = createBrowserRouter([
@@ -202,8 +203,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );

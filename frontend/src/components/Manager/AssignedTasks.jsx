@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { GetTaskByCreatedId, UserData } from "../../global/apiCall";
-import { AuthContext } from "../../store/AuthContext";
+import {useSelector,useDispatch} from "react-redux";
 
 const AssignedTasks = () => {
-  const { Details } = useContext(AuthContext);
+  const Details  = useSelector((state)=>state.UserDetails);
   const [data, setData] = useState([]);
   const [employee, setEmployee] = useState([]);
 

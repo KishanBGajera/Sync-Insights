@@ -9,13 +9,15 @@ import { IoSettings } from "react-icons/io5";
 import { GrOrganization } from "react-icons/gr";
 import { IoLogOut } from "react-icons/io5";
 import "../../style/Sidebar.css";
-import { AuthContext } from "../../store/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/slice/UserDetails.js";
 import { logoutUser } from "../../Global/apiCall";
 import { useState, useContext, useEffect } from "react";
 import { RoleData } from "../../global/apiCall.jsx";
 
 const SidebarCEO = () => {
-  const { Details, logout } = useContext(AuthContext);
+  const Details = useSelector((state) => state.UserDetails);
+  const dispatch = useDispatch();
   const [role, setRole] = useState([]);
   const [data, setData] = useState();
 
@@ -38,13 +40,13 @@ const SidebarCEO = () => {
 
   useEffect(() => {
     if (Details && Details.role_id) {
-      const foundRole = role.find(item => item._id === Details.role_id);
+      const foundRole = role.find((item) => item._id === Details.role_id);
       if (foundRole) {
         setData(foundRole.role_name);
       }
     }
   }, [role, Details]);
-  
+
   const item = [
     {
       img: <BiSolidDashboard style={{ fontSize: "20px" }} />,
@@ -76,7 +78,7 @@ const SidebarCEO = () => {
 
   const handleLogout = () => {
     logoutUser();
-    logout();
+    dispatch(userActions.logout());
     window.location.href = "/";
   };
 
@@ -113,7 +115,10 @@ const SidebarCEO = () => {
                 alt="Avatar"
               />
               <p style={{ fontSize: "10px" }}>
-                <span style={{fontSize:"12px",fontWeight:500}}>{Details?.first_name}</span> <br />
+                <span style={{ fontSize: "12px", fontWeight: 500 }}>
+                  {Details?.first_name}
+                </span>{" "}
+                <br />
                 {data}
               </p>
               <IoLogOut

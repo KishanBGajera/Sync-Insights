@@ -3,12 +3,12 @@ import { IoMdClose } from "react-icons/io";
 import "../../style/Manager/Calendar.css";
 import Sidebar from "./Sidebar";
 import { InsertTask, UserData } from "../../global/apiCall.jsx";
-import { AuthContext } from "../../store/AuthContext.jsx";
+import {useSelector,useDispatch} from "react-redux";
 import Alert from "../../utils/Alert.jsx";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { Details } = useContext(AuthContext);
+  const Details  = useSelector((state)=>state.UserDetails);
   const [task, setTask] = useState(null); // Store the day to add a task for that date
   const [data, setData] = useState([]);
   const [tasks, setTasks] = useState([]); // Store all the tasks

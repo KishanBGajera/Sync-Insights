@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { GetAllTask } from "../../Global/apiCall";
-import { AuthContext } from "../../store/AuthContext";
+import {useSelector,useDispatch} from "react-redux";
 import BarChart from "../Charts/BarChart";
 
 const Insights = () => {
   const [userTasks, setUserTasks] = useState([]);
   const [completedOnDates, setCompletedOnDates] = useState([]);
   const [dateCount, setDateCount] = useState({});
-  const { Details } = useContext(AuthContext);
+  const Details  = useSelector((state)=>state.UserDetails)
 
   useEffect(() => {
     const fetchData = async () => {

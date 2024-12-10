@@ -8,12 +8,15 @@ import { MdInsights } from "react-icons/md";
 import { IoIosNotifications } from "react-icons/io";
 import "../../style/Sidebar.css";
 import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../store/AuthContext";
+import {useSelector,useDispatch} from "react-redux";
+import { userActions } from "../../store/slice/UserDetails.js";
 import { logoutUser } from "../../Global/apiCall";
 import { RoleData } from "../../global/apiCall.jsx";
 
 const Sidebar = () => {
-  const { Details, logout } = useContext(AuthContext);
+  // const { Details, logout } = useContext(AuthContext);
+  const Details = useSelector((state)=>state.UserDetails);
+  const dispatch = useDispatch();
   const [role, setRole] = useState([]);
   const [data, setData] = useState();
   const item = [
@@ -72,7 +75,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     logoutUser();
-    logout();
+    dispatch(userActions.logout());
     window.location.href = "/";
   };
 

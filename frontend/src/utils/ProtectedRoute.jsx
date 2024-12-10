@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../store/AuthContext"; // Import AuthContext
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux"; // Import AuthContext
 import Unauthorized from "../components/Unauthorized";
 
 function ProtectedRoute({ children, allowedRoleIds }) {
-  const { Details } = useContext(AuthContext);
+  const Details = useSelector((state)=>state.UserDetails);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

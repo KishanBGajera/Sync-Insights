@@ -3,10 +3,10 @@ import Sidebar from "./Sidebar";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import "../../style/Employee/Task.css";
 import { GetAllTask, UpdateTask } from "../../Global/apiCall";
-import { AuthContext } from "../../store/AuthContext";
+import {useSelector,useDispatch} from "react-redux";
 
 const Task = () => {
-  const { Details } = useContext(AuthContext);
+  const Details  = useSelector((state)=>state.UserDetails)
   const [showAll, setShowAll] = useState(false);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);

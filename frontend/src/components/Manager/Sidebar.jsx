@@ -9,12 +9,14 @@ import { IoLogOut } from "react-icons/io5";
 import { FaTasks } from "react-icons/fa";
 import "../../style/Sidebar.css";
 import { useContext,useState,useEffect } from 'react';
-import { AuthContext } from "../../store/AuthContext";
+import {useSelector,useDispatch} from "react-redux";
+import { userActions } from "../../store/slice/UserDetails.js";
 import { logoutUser } from "../../Global/apiCall";
 import { RoleData } from "../../global/apiCall.jsx";
 
 const Sidebar = () => {
-  const { Details, logout } = useContext(AuthContext);
+  const Details  = useSelector((state)=>state.UserDetails)
+  const dispatch = useDispatch();
   const [role, setRole] = useState([]);
     const [data, setData] = useState();
   // const item = [
@@ -55,7 +57,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     logoutUser();
-    logout();
+    dispatch(userActions.logout());
     window.location.href = "/";
   };
 
